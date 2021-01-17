@@ -94,7 +94,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="foreword.html">Foreword</a></li><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="getting-started.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="project-setup.html"><strong aria-hidden="true">1.1.</strong> Project Setup</a></li><li class="chapter-item expanded "><a href="dependencies.html"><strong aria-hidden="true">1.2.</strong> Dependencies</a></li><li class="chapter-item expanded "><a href="creating-a-window.html"><strong aria-hidden="true">1.3.</strong> Creating a Window</a></li><li class="chapter-item expanded "><a href="creating-an-application.html"><strong aria-hidden="true">1.4.</strong> Creating an Application</a></li></ol></li><li class="chapter-item expanded "><a href="clearing-the-screen-with-vulkan.html"><strong aria-hidden="true">2.</strong> Clearing the Screen with Vulkan</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="the-vulkan-context.html"><strong aria-hidden="true">2.1.</strong> The Vulkan Context</a></li><li class="chapter-item expanded "><a href="vulkan-instances.html"><strong aria-hidden="true">2.2.</strong> Vulkan Instances</a></li><li class="chapter-item expanded "><a href="vulkan-physical-devices.html"><strong aria-hidden="true">2.3.</strong> Vulkan Physical Devices</a></li><li class="chapter-item expanded "><a href="vulkan-logical-devices.html"><strong aria-hidden="true">2.4.</strong> Vulkan Logical Devices</a></li><li class="chapter-item expanded "><a href="the-amd-vulkan-memory-allocator.html"><strong aria-hidden="true">2.5.</strong> The AMD Vulkan Memory Allocator</a></li></ol></li><li class="chapter-item expanded "><a href="appendix.html"><strong aria-hidden="true">3.</strong> Appendix</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="appendix-keywords.html"><strong aria-hidden="true">3.1.</strong> A - Keywords</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="foreword.html">Foreword</a></li><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="getting-started.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="project-setup.html"><strong aria-hidden="true">1.1.</strong> Project Setup</a></li><li class="chapter-item expanded "><a href="creating-a-window.html"><strong aria-hidden="true">1.2.</strong> Creating a Window</a></li><li class="chapter-item expanded "><a href="creating-an-application.html"><strong aria-hidden="true">1.3.</strong> Creating an Application</a></li></ol></li><li class="chapter-item expanded "><a href="clearing-the-screen-with-vulkan.html"><strong aria-hidden="true">2.</strong> Clearing the Screen with Vulkan</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="the-vulkan-context.html"><strong aria-hidden="true">2.1.</strong> The Vulkan Context</a></li><li class="chapter-item expanded "><a href="vulkan-instances.html"><strong aria-hidden="true">2.2.</strong> Vulkan Instances</a></li><li class="chapter-item expanded "><a href="vulkan-physical-devices.html"><strong aria-hidden="true">2.3.</strong> Vulkan Physical Devices</a></li><li class="chapter-item expanded "><a href="vulkan-logical-devices.html"><strong aria-hidden="true">2.4.</strong> Vulkan Logical Devices</a></li><li class="chapter-item expanded "><a href="the-amd-vulkan-memory-allocator.html"><strong aria-hidden="true">2.5.</strong> The AMD Vulkan Memory Allocator</a></li></ol></li><li class="chapter-item expanded "><a href="appendix.html"><strong aria-hidden="true">3.</strong> Appendix</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="appendix-keywords.html"><strong aria-hidden="true">3.1.</strong> A - Keywords</a></li><li class="chapter-item expanded "><a href="vulkan-configurator.html"><strong aria-hidden="true">3.2.</strong> B - Vulkan Configurator</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -163,8 +163,128 @@
                         <h1><a class="header" href="#foreword" id="foreword">Foreword</a></h1>
 <h1><a class="header" href="#introduction" id="introduction">Introduction</a></h1>
 <h1><a class="header" href="#getting-started" id="getting-started">Getting Started</a></h1>
+<p>The source code for this book can be found on github:</p>
+<p><a href="https://github.com/matthewjberger/obsidian">https://github.com/matthewjberger/obsidian</a></p>
+<h2><a class="header" href="#dependencies" id="dependencies">Dependencies</a></h2>
+<p>This project requires the <a href="https://www.rust-lang.org/">Rust programming language</a>.</p>
+<p>The easiest way to get access to the Vulkan dependencies is to install <a href="https://vulkan.lunarg.com/sdk/home">the Vulkan SDK</a>. This provides access to the Vulkan Configurator, glslangvalidator, the debug layers, and other useful tools for working with Vulkan.</p>
+<p>The latest version of <code>GCC</code> and <code>CMake</code> will also be required for ffi bindings to C/C++ libraries.</p>
+<h2><a class="header" href="#development-environment-setup" id="development-environment-setup">Development Environment Setup</a></h2>
+<p>Using <a href="https://code.visualstudio.com/">vscode</a> and <a href="https://github.com/rust-analyzer/rust-analyzer">rust-analyzer</a> with the rust-analyzer <a href="https://marketplace.visualstudio.com/items?itemName=matklad.rust-analyzer">vscode extension</a> is recommended. However, any Rust development environment you are comfortable with will work.</p>
+<p>The <a href="https://doc.rust-lang.org/book/">official Rust book</a> is a great resource if you are new to Rust.</p>
+<h3><a class="header" href="#quick-windows-setup" id="quick-windows-setup">Quick Windows Setup</a></h3>
+<p>On windows, installing programs can be trickier than on other platforms. It is recommended to use a package manager such as <a href="https://scoop.sh/">Scoop</a> or <a href="https://chocolatey.org/">chocolatey</a>.</p>
+<p>First, make sure <a href="https://aka.ms/wmf5download">PowerShell 5</a> (or later, include <a href="https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-windows?view=powershell-6">PowerShell Core</a>) and .<a href="https://www.microsoft.com/net/download">NET Framework 4.5</a> (or later) are installed. Then run:</p>
+<pre><code class="language-powershell"># Install scoop
+Set-ExecutionPolicy RemoteSigned -scope CurrentUser
+Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')
+
+# Scoop uses git to update itself and 7zip to extract archives
+scoop install git 7zip 
+
+# Install the project's dependencies
+scoop install gcc cmake rustup
+
+# Set the stable rust toolchain as the default toolchain
+rustup default stable
+
+# Install vscode, kept in a separate bucket called the 'extras' bucket
+scoop bucket add extras
+scoop install vscode
+</code></pre>
 <h1><a class="header" href="#project-setup" id="project-setup">Project Setup</a></h1>
-<h1><a class="header" href="#dependencies" id="dependencies">Dependencies</a></h1>
+<p>The directory structure for the project will look like this:</p>
+<p><img src="images/file-structure.png" alt="file-structure" /></p>
+<h2><a class="header" href="#file-structure" id="file-structure">File Structure</a></h2>
+<ul>
+<li><code>assets/</code>
+<ul>
+<li><code>hdr/</code>
+Contains hdri maps used for skyboxes and environment maps</li>
+<li><code>icon/</code>
+Contains icons used by applications</li>
+<li><code>models/</code>
+Contains 3D assets, such as *.gltf and *.glb files</li>
+<li><code>shaders/</code>
+Contains all of the shaders used in the project</li>
+</ul>
+</li>
+<li><code>crates/</code>
+<ul>
+<li><code>obsidian_app/</code>
+A library that handles the window and application input boilerplate</li>
+</ul>
+</li>
+<li><code>viewer/</code>
+An application that can render 3D models, developed over the course of this book</li>
+</ul>
+<h2><a class="header" href="#creating-the-file-structure" id="creating-the-file-structure">Creating the File Structure</a></h2>
+<p>Create the project as a library:</p>
+<pre><code class="language-bash">cargo new --lib obsidian
+cd obsidian
+</code></pre>
+<p>Create the asset folders:</p>
+<pre><code class="language-bash">mkdir assets
+mkdir assets/hdr
+mkdir assets/icon
+mkdir assets/models
+mkdir assets/shaders
+</code></pre>
+<p>Edit <code>Cargo.toml</code> to make the project a cargo workspace:</p>
+<pre><code class="language-toml"># Leave the [package] section as is
+
+[workspace]
+members = [&quot;crates/*&quot;, &quot;viewer&quot;]
+default-members = [&quot;viewer&quot;]
+
+[dependencies]
+obsidian_app = { path = &quot;crates/obsidian_app&quot; }
+</code></pre>
+<p>Create and edit <code>crates/obsidian_app/app.rs</code> to contain:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub struct Application;
+<span class="boring">}
+</span></code></pre></pre>
+<p>Create and edit <code>crates/obsidian_app/lib.rs</code> to contain:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub use self::app::*;
+<span class="boring">}
+</span></code></pre></pre>
+<p>Edit <code>src/lib.rs</code> to reference the app library:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub mod app {
+    pub use obsidian_app::*;
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>Create the application crate as a library:</p>
+<pre><code class="language-bash">mkdir
+cargo new --lib crates/obsidian_app
+</code></pre>
+<p>Create the viewer application:</p>
+<pre><code class="language-bash">cargo new viewer
+</code></pre>
+<p>Update the <code>viewer/cargo.toml</code> to reference all of obsidian as a single library.</p>
+<pre><code class="language-toml">[dependencies]
+obsidian = { path = &quot;..&quot; }
+</code></pre>
+<p>Edit the <code>viewer/main.rs</code> file to use a type from the app library:</p>
+<pre><pre class="playground"><code class="language-rust">use obsidian::app::Application;
+
+fn main() {
+    let _app = Application {};
+    println!(&quot;Hello, world!&quot;);
+}
+</code></pre></pre>
+<p>Now, run <code>cargo run --release</code> to compile and statically link the program. You should see:</p>
+<pre><code class="language-bash">&quot;Hello, world!&quot;
+</code></pre>
 <h1><a class="header" href="#creating-a-window" id="creating-a-window">Creating a Window</a></h1>
 <h1><a class="header" href="#creating-the-application" id="creating-the-application">Creating the Application</a></h1>
 <h1><a class="header" href="#clearing-the-screen-with-vulkan" id="clearing-the-screen-with-vulkan">Clearing the Screen with Vulkan</a></h1>
@@ -175,6 +295,7 @@
 <h1><a class="header" href="#the-amd-vulkan-memory-allocator" id="the-amd-vulkan-memory-allocator">The AMD Vulkan Memory Allocator</a></h1>
 <h1><a class="header" href="#appendix" id="appendix">Appendix</a></h1>
 <h1><a class="header" href="#a---keywords" id="a---keywords">A - Keywords</a></h1>
+<h1><a class="header" href="#b---vulkan-configurator" id="b---vulkan-configurator">B - Vulkan Configurator</a></h1>
 
                     </main>
 
