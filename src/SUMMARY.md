@@ -5,7 +5,6 @@
 
 * [Getting Started](getting-started.md)
   * [Project Setup](project-setup.md)
-  * [Dependencies](dependencies.md)
   * [Creating a Window](creating-a-window.md)
   * [Creating an Application](creating-an-application.md)
 
@@ -18,3 +17,4 @@
 
 * [Appendix](appendix.md)
   * [A - Keywords](appendix-keywords.md)
+  * [B - Vulkan Configurator](vulkan-configurator.md)
