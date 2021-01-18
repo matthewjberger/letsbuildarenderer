@@ -59,13 +59,13 @@ Create the application crate as a library:
 cargo new --lib crates/obsidian_app
 ```
 
-Create and edit `crates/obsidian_app/app.rs` to contain:
+Create and edit `crates/obsidian_app/src/app.rs` to contain:
 
 ```rust
 pub struct Application;
 ```
 
-Create and edit `crates/obsidian_app/lib.rs` to contain:
+Update `crates/obsidian_app/src/lib.rs`:
 
 ```rust
 pub use self::app::*;
