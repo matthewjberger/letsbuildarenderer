@@ -61,20 +61,20 @@ cargo new --lib crates/obsidian_app
 
 Create and edit `crates/obsidian_app/src/app.rs` to contain:
 
-```rust
+```rust,noplaypen
 pub struct Application;
 ```
 
 Update `crates/obsidian_app/src/lib.rs`:
 
-```rust
+```rust,noplaypen
 mod app;
 pub use self::app::*;
 ```
 
 Edit `src/lib.rs` to reference the app library:
 
-```rust
+```rust,noplaypen
 pub mod app {
     pub use obsidian_app::*;
 }
@@ -95,7 +95,7 @@ obsidian = { path = ".." }
 
 Edit the `viewer/main.rs` file to use a type from the app library:
 
-```rust
+```rust,noplaypen
 use obsidian::app::Application;
 
 fn main() {
