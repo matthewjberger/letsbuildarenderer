@@ -159,6 +159,47 @@
                 <div id="content" class="content">
                     <main>
                         <h1><a class="header" href="#creating-the-application" id="creating-the-application">Creating the Application</a></h1>
+<p>To make our application boilerplate reusable, we created the <code>obsidian_app</code> library. Now, we can start filling this out.</p>
+<h2><a class="header" href="#configuring-the-application" id="configuring-the-application">Configuring the Application</a></h2>
+<p>Add an application configuration struct:</p>
+<pre><code class="language-rust noplaypen">pub struct AppConfig {
+    pub width: u32,
+    pub height: u32,
+    pub title: String,
+}
+
+impl Default for AppConfig {
+    fn default() -&gt; Self {
+        Self {
+            width: 800,
+            height: 600,
+            title: &quot;Obsidian Application&quot;.to_string(),
+        }
+    }
+}
+</code></pre>
+<p>For error handling, we'll be using the <a href="https://github.com/dtolnay/anyhow">anyhow</a> crate.</p>
+<p>To setup a window, we'll be using the <a href="https://github.com/rust-windowing/winit">winit</a> crate. </p>
+<p>We will need to list these libraries as dependencies in <code>crates/obsidian_app/Cargo.toml</code> under the <code>[dependencies]</code> section:</p>
+<pre><code class="language-toml">[dependencies]
+anyhow = &quot;1.0.38&quot;
+winit = &quot;0.24.0
+</code></pre>
+<p>Using the <code>AppConfig</code>, we can create a <code>Window</code> and <code>EventLoop&lt;()&gt;</code> in <code>crates/obsidian_app/src/app.rs</code>:</p>
+<pre><code class="language-rust noplaypen">use anyhow::Result;
+use winit::{dpi::PhysicalSize, event_loop::EventLoop, window::Window, window::WindowBuilder};
+
+pub fn create_window(config: &amp;AppConfig) -&gt; Result&lt;(EventLoop&lt;()&gt;, Window)&gt; {
+    let event_loop = EventLoop::new();
+
+    let window = WindowBuilder::new()
+        .with_title(config.title.to_string())
+        .with_inner_size(PhysicalSize::new(config.width, config.height))
+        .build(&amp;event_loop)?;
+
+    Ok((event_loop, window))
+}
+</code></pre>
 
                     </main>
 
