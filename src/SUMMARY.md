@@ -12,7 +12,7 @@
   * [Vulkan Instances](vulkan-instances.md)
   * [Vulkan Physical Devices](vulkan-physical-devices.md)
   * [Vulkan Logical Devices](vulkan-logical-devices.md)
-  * [The AMD Vulkan Memory Allocator](the-amd-vulkan-memory-allocator.md)
+  * [The AMD Vulkan Memory Allocator](amd-vulkan-memory-allocator.md)
 
 * [Appendix](appendix.md)
   * [A - Keywords](appendix-keywords.md)
