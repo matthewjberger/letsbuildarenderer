@@ -56,7 +56,6 @@ obsidian_app = { path = "crates/obsidian_app" }
 Create the application crate as a library:
 
 ```bash
-mkdir
 cargo new --lib crates/obsidian_app
 ```
 
