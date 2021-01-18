@@ -1,12 +1,11 @@
 # Let's Build a Renderer
 
-[Foreword](foreword.md)
 [Introduction](introduction.md)
 
 * [Getting Started](getting-started.md)
   * [Project Setup](project-setup.md)
-  * [Creating a Window](creating-a-window.md)
   * [Creating an Application](creating-an-application.md)
+  * [Creating a Window](creating-a-window.md)
 
 * [Clearing the Screen with Vulkan](clearing-the-screen-with-vulkan.md)
   * [The Vulkan Context](the-vulkan-context.md)
