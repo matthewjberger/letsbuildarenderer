@@ -68,6 +68,7 @@ pub struct Application;
 Update `crates/obsidian_app/src/lib.rs`:
 
 ```rust
+mod app;
 pub use self::app::*;
 ```
 
