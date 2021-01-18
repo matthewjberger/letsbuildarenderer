@@ -220,7 +220,8 @@ obsidian_app = { path = &quot;crates/obsidian_app&quot; }
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>pub use self::app::*;
+</span>mod app;
+pub use self::app::*;
 <span class="boring">}
 </span></code></pre></pre>
 <p>Edit <code>src/lib.rs</code> to reference the app library:</p>
