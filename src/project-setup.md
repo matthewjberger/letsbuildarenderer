@@ -53,6 +53,13 @@ default-members = ["viewer"]
 obsidian_app = { path = "crates/obsidian_app" }
 ```
 
+Create the application crate as a library:
+
+```bash
+mkdir
+cargo new --lib crates/obsidian_app
+```
+
 Create and edit `crates/obsidian_app/app.rs` to contain:
 
 ```rust
@@ -71,13 +78,6 @@ Edit `src/lib.rs` to reference the app library:
 pub mod app {
     pub use obsidian_app::*;
 }
-```
-
-Create the application crate as a library:
-
-```bash
-mkdir
-cargo new --lib crates/obsidian_app
 ```
 
 Create the viewer application:
