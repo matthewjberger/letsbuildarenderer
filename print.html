@@ -501,6 +501,7 @@ fn main() -&gt; Result&lt;()&gt; {
 }
 </code></pre>
 <p>Now, when you run the application with <code>cargo run --release</code> from the project root the application will display an empty window with a custom title!</p>
+<p><img src="images/chapter1.png" alt="file-structure" /></p>
 <h1><a class="header" href="#the-logging-backend" id="the-logging-backend">The Logging Backend</a></h1>
 <p>In order for the logger facade functions to work, we will need to add a logging backend. For this project, we'll use <a href="https://github.com/drakulix/simplelog.rs">simplelog</a>.</p>
 <p>Add this dependency to <code>crates/obsidian_app/Cargo.toml</code>:</p>
