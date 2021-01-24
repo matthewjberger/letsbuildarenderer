@@ -345,7 +345,7 @@ log = &quot;0.4.11&quot;
 <p>The <code>winit</code> crate manages the event loop. For easy error handling, we will use a lambda that returns a <code>Result&lt;()&gt;</code> to handle each cycle. This lets us check for application errors and log them.</p>
 <p>Inside of the event loop we can also handle events and invoke the application runner's methods.</p>
 <blockquote>
-<p>The <a href="https://docs.rs/winit/0.24.0/winit/event_loop/enum.ControlFlow.html">control_flow</a> object allows controlling the main loop's behavior. For a game loop or realtime rendering application we will need to execute the loop continously, so we use <code>ControlFlow::Poll</code>.</p>
+<p>Note: The <a href="https://docs.rs/winit/0.24.0/winit/event_loop/enum.ControlFlow.html">control_flow</a> object allows controlling the main loop's behavior. For a game loop or realtime rendering application we will need to execute the loop continously, so we use <code>ControlFlow::Poll</code>.</p>
 </blockquote>
 <pre><code class="language-rust noplaypen">    event_loop.run(move |event, _, control_flow| {
         let mut cycle_result = || -&gt; Result&lt;()&gt; {
@@ -499,7 +499,7 @@ fn main() -&gt; Result&lt;()&gt; {
 <pre><code class="language-toml">simplelog = { version = &quot;0.9.0&quot;, features = [&quot;termcolor&quot;] }
 </code></pre>
 <blockquote>
-<p>The <code>termcolor</code> feature allows for colored terminal log output.</p>
+<p>Note: The <code>termcolor</code> feature allows for colored terminal log output.</p>
 </blockquote>
 <p>Now we can create a logger module to setup the logger backend.</p>
 <pre><code class="language-rust noplaypen">// crates/obsidian_app/src/lib.rs
