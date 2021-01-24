@@ -91,17 +91,6 @@ Update the `viewer/cargo.toml` to reference all of obsidian as a single library.
 obsidian = { path = ".." }
 ```
 
-Edit the `viewer/main.rs` file to use a type from the app library:
-
-```rust,noplaypen
-use obsidian::app::Application;
-
-fn main() {
-    let _app = Application {};
-    println!("Hello, world!");
-}
-```
-
 Now, run `cargo run --release` to compile and statically link the program. You should see:
 
 ```bash
