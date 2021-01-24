@@ -36,7 +36,7 @@ pub fn create_logger(path: impl AsRef<Path>) -> Result<()> {
 }
 ```
 
-The [CombinedLogger](https://docs.rs/simplelog/0.9.0/simplelog/struct.CombinedLogger.html) lets us create a [TermLogger](https://docs.rs/simplelog/0.9.0/simplelog/struct.TermLogger.html) and a [WriteLogger](https://docs.rs/simplelog/0.9.0/simplelog/struct.WriteLogger.html) at the same time. We will only log messages with the severity [INFO](https://docs.rs/simplelog/0.9.0/simplelog/enum.Level.html#variant.Info) and above to the terminal, and we will log all messages to the configuration file.
+The [CombinedLogger](https://docs.rs/simplelog/0.9.0/simplelog/struct.CombinedLogger.html) lets us create a [TermLogger](https://docs.rs/simplelog/0.9.0/simplelog/struct.TermLogger.html) and a [WriteLogger](https://docs.rs/simplelog/0.9.0/simplelog/struct.WriteLogger.html) at the same time. We will only log messages with the severity [Info](https://docs.rs/simplelog/0.9.0/simplelog/enum.Level.html#variant.Info) and above to the terminal, and we will log all messages to the configuration file.
 
 And finally we can invoke the `create_logger` function in our `run_application` method:
 
