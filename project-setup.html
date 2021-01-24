@@ -226,14 +226,6 @@ pub use self::app::*;
 <pre><code class="language-toml">[dependencies]
 obsidian = { path = &quot;..&quot; }
 </code></pre>
-<p>Edit the <code>viewer/main.rs</code> file to use a type from the app library:</p>
-<pre><code class="language-rust noplaypen">use obsidian::app::Application;
-
-fn main() {
-    let _app = Application {};
-    println!(&quot;Hello, world!&quot;);
-}
-</code></pre>
 <p>Now, run <code>cargo run --release</code> to compile and statically link the program. You should see:</p>
 <pre><code class="language-bash">&quot;Hello, world!&quot;
 </code></pre>
