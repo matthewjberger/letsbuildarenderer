@@ -1,9 +1,5 @@
 # Getting Started
 
-The source code for this book can be found on github:
-
-<https://github.com/matthewjberger/obsidian>
-
 ## Dependencies
 
 This project requires the [Rust programming language](https://www.rust-lang.org/).

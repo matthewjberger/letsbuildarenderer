@@ -27,3 +27,13 @@ This book is very code-heavy and implementation focused, as opposed to other res
 ## What Is Not Covered
 
 This book will not go into detail on linear algebra concepts or mathematics, as there are already great resources available. This book may not go into as much depth on particular parts of the Vulkan API as other resources might. A list of useful external resources for building upon the content of this book can be found in the `Further Reading` section of the appendix.
+
+## Project Repo
+
+The source code for the `Obsidian` render built in this book can be found on github:
+
+<https://github.com/matthewjberger/obsidian>
+
+The source code for this mdbook can also be found on github:
+
+<https://github.com/matthewjberger/letsbuildarenderer>
