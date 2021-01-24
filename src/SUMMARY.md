@@ -1,6 +1,7 @@
 # Let's Build a Renderer
 
 [Introduction](introduction.md)
+[Final Project Preview](final-project-preview.md)
 
 * [Getting Started](getting-started.md)
   * [Project Setup](project-setup.md)
