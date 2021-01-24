@@ -187,7 +187,7 @@ pub fn create_logger(path: impl AsRef&lt;Path&gt;) -&gt; Result&lt;()&gt; {
     Ok(())
 }
 </code></pre>
-<p>The <a href="https://docs.rs/simplelog/0.9.0/simplelog/struct.CombinedLogger.html">CombinedLogger</a> lets us create a <a href="https://docs.rs/simplelog/0.9.0/simplelog/struct.TermLogger.html">TermLogger</a> and a <a href="https://docs.rs/simplelog/0.9.0/simplelog/struct.WriteLogger.html">WriteLogger</a> at the same time. We will only log messages with the severity <a href="https://docs.rs/simplelog/0.9.0/simplelog/enum.Level.html#variant.Info">INFO</a> and above to the terminal, and we will log all messages to the configuration file.</p>
+<p>The <a href="https://docs.rs/simplelog/0.9.0/simplelog/struct.CombinedLogger.html">CombinedLogger</a> lets us create a <a href="https://docs.rs/simplelog/0.9.0/simplelog/struct.TermLogger.html">TermLogger</a> and a <a href="https://docs.rs/simplelog/0.9.0/simplelog/struct.WriteLogger.html">WriteLogger</a> at the same time. We will only log messages with the severity <a href="https://docs.rs/simplelog/0.9.0/simplelog/enum.Level.html#variant.Info">Info</a> and above to the terminal, and we will log all messages to the configuration file.</p>
 <p>And finally we can invoke the <code>create_logger</code> function in our <code>run_application</code> method:</p>
 <pre><code class="language-rust noplaypen">pub fn run_application(mut runner: impl Run + 'static, configuration: AppConfig) -&gt; Result&lt;()&gt; {
     create_logger(&amp;configuration.logfile_name)?;
