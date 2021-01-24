@@ -18,7 +18,7 @@ Rust is a great alternative to `C++`!  A few of the benefits:
 
 ## Target Audience
 
-The target audience of this book is moderately experienced developers with an interest in graphics programming. Prior graphics programming experience, particularly with [OpenGL](https://www.opengl.org) will be particularly useful. Essentially this is the book I would have loved to have available when first starting out with Vulkan.
+The target audience of this book is moderately experienced developers with an interest in graphics programming. Prior graphics programming experience, particularly with [OpenGL](https://www.opengl.org) will be particularly useful. This is the book I would have wanted to read when first starting out with Vulkan.
 
 ## What Is Covered
 
