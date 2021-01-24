@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Project Setup - Let's Build a Renderer</title>
+        <title>Final Project Preview - Let's Build a Renderer</title>
         
         
 
@@ -92,7 +92,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded affix "><a href="final-project-preview.html">Final Project Preview</a></li><li class="chapter-item expanded "><a href="getting-started.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="project-setup.html" class="active"><strong aria-hidden="true">1.1.</strong> Project Setup</a></li><li class="chapter-item expanded "><a href="creating-an-application.html"><strong aria-hidden="true">1.2.</strong> Creating an Application</a></li><li class="chapter-item expanded "><a href="the-logging-backend.html"><strong aria-hidden="true">1.3.</strong> The Logging Backend</a></li></ol></li><li class="chapter-item expanded "><a href="clearing-the-screen-with-vulkan.html"><strong aria-hidden="true">2.</strong> Clearing the Screen with Vulkan</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="the-vulkan-context.html"><strong aria-hidden="true">2.1.</strong> The Vulkan Context</a></li><li class="chapter-item expanded "><a href="vulkan-instances.html"><strong aria-hidden="true">2.2.</strong> Vulkan Instances</a></li><li class="chapter-item expanded "><a href="vulkan-physical-devices.html"><strong aria-hidden="true">2.3.</strong> Vulkan Physical Devices</a></li><li class="chapter-item expanded "><a href="vulkan-logical-devices.html"><strong aria-hidden="true">2.4.</strong> Vulkan Logical Devices</a></li><li class="chapter-item expanded "><a href="amd-vulkan-memory-allocator.html"><strong aria-hidden="true">2.5.</strong> The AMD Vulkan Memory Allocator</a></li></ol></li><li class="chapter-item expanded "><a href="appendix.html"><strong aria-hidden="true">3.</strong> Appendix</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="appendix-further-reading.html"><strong aria-hidden="true">3.1.</strong> A - Further Reading</a></li><li class="chapter-item expanded "><a href="appendix-keywords.html"><strong aria-hidden="true">3.2.</strong> B - Keywords</a></li><li class="chapter-item expanded "><a href="appendix-vulkan-configurator.html"><strong aria-hidden="true">3.3.</strong> C - Vulkan Configurator</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded affix "><a href="final-project-preview.html" class="active">Final Project Preview</a></li><li class="chapter-item expanded "><a href="getting-started.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="project-setup.html"><strong aria-hidden="true">1.1.</strong> Project Setup</a></li><li class="chapter-item expanded "><a href="creating-an-application.html"><strong aria-hidden="true">1.2.</strong> Creating an Application</a></li><li class="chapter-item expanded "><a href="the-logging-backend.html"><strong aria-hidden="true">1.3.</strong> The Logging Backend</a></li></ol></li><li class="chapter-item expanded "><a href="clearing-the-screen-with-vulkan.html"><strong aria-hidden="true">2.</strong> Clearing the Screen with Vulkan</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="the-vulkan-context.html"><strong aria-hidden="true">2.1.</strong> The Vulkan Context</a></li><li class="chapter-item expanded "><a href="vulkan-instances.html"><strong aria-hidden="true">2.2.</strong> Vulkan Instances</a></li><li class="chapter-item expanded "><a href="vulkan-physical-devices.html"><strong aria-hidden="true">2.3.</strong> Vulkan Physical Devices</a></li><li class="chapter-item expanded "><a href="vulkan-logical-devices.html"><strong aria-hidden="true">2.4.</strong> Vulkan Logical Devices</a></li><li class="chapter-item expanded "><a href="amd-vulkan-memory-allocator.html"><strong aria-hidden="true">2.5.</strong> The AMD Vulkan Memory Allocator</a></li></ol></li><li class="chapter-item expanded "><a href="appendix.html"><strong aria-hidden="true">3.</strong> Appendix</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="appendix-further-reading.html"><strong aria-hidden="true">3.1.</strong> A - Further Reading</a></li><li class="chapter-item expanded "><a href="appendix-keywords.html"><strong aria-hidden="true">3.2.</strong> B - Keywords</a></li><li class="chapter-item expanded "><a href="appendix-vulkan-configurator.html"><strong aria-hidden="true">3.3.</strong> C - Vulkan Configurator</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -158,90 +158,23 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#project-setup" id="project-setup">Project Setup</a></h1>
-<p>The directory structure for the project will look like this:</p>
-<p><img src="images/file-structure.png" alt="file-structure" /></p>
-<h2><a class="header" href="#file-structure" id="file-structure">File Structure</a></h2>
-<ul>
-<li><code>assets/</code>
-<ul>
-<li><code>hdr/</code>
-Contains HDR maps used for skyboxes and environment mapping</li>
-<li><code>models/</code>
-Contains 3D assets, such as *.gltf and *.glb files</li>
-<li><code>shaders/</code>
-Contains all of the shaders used in the project</li>
-</ul>
-</li>
-<li><code>crates/</code>
-<ul>
-<li><code>obsidian_app/</code>
-A library that handles the window and application input boilerplate</li>
-</ul>
-</li>
-<li><code>viewer/</code>
-An application that can render 3D models, developed over the course of this book</li>
-</ul>
-<h2><a class="header" href="#creating-the-file-structure" id="creating-the-file-structure">Creating the File Structure</a></h2>
-<p>Create the project as a library:</p>
-<pre><code class="language-bash">cargo new --lib obsidian
-cd obsidian
-</code></pre>
-<p>Create the asset folders:</p>
-<pre><code class="language-bash">mkdir assets
-mkdir assets/hdr
-mkdir assets/icon
-mkdir assets/models
-mkdir assets/shaders
-</code></pre>
-<p>Edit <code>Cargo.toml</code> to make the project a cargo workspace:</p>
-<pre><code class="language-toml"># Leave the [package] section as is
-
-[workspace]
-members = [&quot;crates/*&quot;, &quot;viewer&quot;]
-default-members = [&quot;viewer&quot;]
-
-[dependencies]
-obsidian_app = { path = &quot;crates/obsidian_app&quot; }
-</code></pre>
-<p>Create the application crate as a library:</p>
-<pre><code class="language-bash">cargo new --lib crates/obsidian_app
-</code></pre>
-<p>Create and edit <code>crates/obsidian_app/src/app.rs</code> to add an <code>Application</code> struct. This will eventually contain everything needed for an <code>Obsidian</code> application, including a physics world, an entity component system, the renderer itself, and more.</p>
-<pre><code class="language-rust noplaypen">pub struct Application;
-</code></pre>
-<p>Update <code>crates/obsidian_app/src/lib.rs</code>:</p>
-<pre><code class="language-rust noplaypen">mod app;
-pub use self::app::*;
-</code></pre>
-<p>Edit <code>src/lib.rs</code> to reference the app library:</p>
-<pre><code class="language-rust noplaypen">pub mod app {
-    pub use obsidian_app::*;
-}
-</code></pre>
-<p>Create the viewer application:</p>
-<pre><code class="language-bash">cargo new viewer
-</code></pre>
-<p>Update the <code>viewer/cargo.toml</code> to reference all of obsidian as a single library.</p>
-<pre><code class="language-toml">[dependencies]
-obsidian = { path = &quot;..&quot; }
-</code></pre>
-<p>Now, run <code>cargo run --release</code> to compile and statically link the program. You should see:</p>
-<pre><code class="language-bash">&quot;Hello, world!&quot;
-</code></pre>
+                        <h1><a class="header" href="#final-project-preview" id="final-project-preview">Final Project Preview</a></h1>
+<h2><a class="header" href="#chapter-1" id="chapter-1">Chapter 1</a></h2>
+<p>Set up the project structure, get a window up and running, and create the boilerplate code used throughout the rest of the book. The code in this chapter will serve as the project's foundation.</p>
+<p><img src="images/chapter1.png" alt="file-structure" /></p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="getting-started.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="introduction.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
                         
-                            <a rel="next" href="creating-an-application.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="getting-started.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -253,13 +186,13 @@ obsidian = { path = &quot;..&quot; }
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a rel="prev" href="getting-started.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="introduction.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a rel="next" href="creating-an-application.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="getting-started.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
