@@ -94,7 +94,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="getting-started.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="project-setup.html"><strong aria-hidden="true">1.1.</strong> Project Setup</a></li><li class="chapter-item expanded "><a href="creating-an-application.html"><strong aria-hidden="true">1.2.</strong> Creating an Application</a></li><li class="chapter-item expanded "><a href="creating-a-window.html"><strong aria-hidden="true">1.3.</strong> Creating a Window</a></li></ol></li><li class="chapter-item expanded "><a href="clearing-the-screen-with-vulkan.html"><strong aria-hidden="true">2.</strong> Clearing the Screen with Vulkan</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="the-vulkan-context.html"><strong aria-hidden="true">2.1.</strong> The Vulkan Context</a></li><li class="chapter-item expanded "><a href="vulkan-instances.html"><strong aria-hidden="true">2.2.</strong> Vulkan Instances</a></li><li class="chapter-item expanded "><a href="vulkan-physical-devices.html"><strong aria-hidden="true">2.3.</strong> Vulkan Physical Devices</a></li><li class="chapter-item expanded "><a href="vulkan-logical-devices.html"><strong aria-hidden="true">2.4.</strong> Vulkan Logical Devices</a></li><li class="chapter-item expanded "><a href="amd-vulkan-memory-allocator.html"><strong aria-hidden="true">2.5.</strong> The AMD Vulkan Memory Allocator</a></li></ol></li><li class="chapter-item expanded "><a href="appendix.html"><strong aria-hidden="true">3.</strong> Appendix</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="appendix-keywords.html"><strong aria-hidden="true">3.1.</strong> A - Keywords</a></li><li class="chapter-item expanded "><a href="vulkan-configurator.html"><strong aria-hidden="true">3.2.</strong> B - Vulkan Configurator</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="getting-started.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="project-setup.html"><strong aria-hidden="true">1.1.</strong> Project Setup</a></li><li class="chapter-item expanded "><a href="creating-an-application.html"><strong aria-hidden="true">1.2.</strong> Creating an Application</a></li><li class="chapter-item expanded "><a href="the-logging-backend.html"><strong aria-hidden="true">1.3.</strong> The Logging Backend</a></li></ol></li><li class="chapter-item expanded "><a href="clearing-the-screen-with-vulkan.html"><strong aria-hidden="true">2.</strong> Clearing the Screen with Vulkan</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="the-vulkan-context.html"><strong aria-hidden="true">2.1.</strong> The Vulkan Context</a></li><li class="chapter-item expanded "><a href="vulkan-instances.html"><strong aria-hidden="true">2.2.</strong> Vulkan Instances</a></li><li class="chapter-item expanded "><a href="vulkan-physical-devices.html"><strong aria-hidden="true">2.3.</strong> Vulkan Physical Devices</a></li><li class="chapter-item expanded "><a href="vulkan-logical-devices.html"><strong aria-hidden="true">2.4.</strong> Vulkan Logical Devices</a></li><li class="chapter-item expanded "><a href="amd-vulkan-memory-allocator.html"><strong aria-hidden="true">2.5.</strong> The AMD Vulkan Memory Allocator</a></li></ol></li><li class="chapter-item expanded "><a href="appendix.html"><strong aria-hidden="true">3.</strong> Appendix</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="appendix-further-reading.html"><strong aria-hidden="true">3.1.</strong> A - Further Reading</a></li><li class="chapter-item expanded "><a href="appendix-keywords.html"><strong aria-hidden="true">3.2.</strong> B - Keywords</a></li><li class="chapter-item expanded "><a href="appendix-vulkan-configurator.html"><strong aria-hidden="true">3.3.</strong> C - Vulkan Configurator</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -161,9 +161,28 @@
                 <div id="content" class="content">
                     <main>
                         <h1><a class="header" href="#introduction" id="introduction">Introduction</a></h1>
-<h2><a class="header" href="#final-project" id="final-project">Final Project</a></h2>
-<p>Here is a preview of what we will be building:</p>
-<p>TODO: Show a preview for each chapter</p>
+<p>Welcome! This book will guide you through the creation and design of a 3D renderer using the <a href="https://www.rust-lang.org/">Rust</a> programming language and the <a href="https://www.khronos.org/vulkan/">Vulkan</a> graphics API.</p>
+<h2><a class="header" href="#purpose" id="purpose">Purpose</a></h2>
+<p>As of January 2021, the resources for learning Vulkan are scarce. The existing resources largely focus on <code>C++</code> and cover various rendering techniques. This is excellent! However, the focus for many of these resources is not on building a structured program that goes beyond the scope of tutorial code. This book is meant to be used as a layer above those low level tutorials, demonstrating how to build a 3D world and render it realtime. This will be particularly of use to indie game developers looking to create a 3D game from scratch without getting overwhelmed.</p>
+<h2><a class="header" href="#why-rust" id="why-rust">Why Rust?</a></h2>
+<p>Rust is a great alternative to <code>C++</code>!  A few of the benefits:</p>
+<ul>
+<li>It provides a smooth workflow for developers with clear, specific error messages from the compiler</li>
+<li><a href="https://rustup.rs/">rustup</a> and <a href="https://github.com/rust-lang/cargo">cargo</a> make managing rust toolchain installations and rust projects straightforward</li>
+<li>The lints from <a href="https://github.com/rust-lang/rust-clippy">clippy</a> help to improve the code quality and catch certain common mistakes</li>
+<li><a href="https://github.com/rust-lang/rustfmt">rustfmt</a> handles formatting the code and code style</li>
+<li>Memory safety. Code written outside of <code>unsafe</code> blocks is checked by the <a href="https://doc.rust-lang.org/book/ch04-02-references-and-borrowing.html?highlight=borrow#references-and-borrowing">borrow checker</a></li>
+</ul>
+<h2><a class="header" href="#target-audience" id="target-audience">Target Audience</a></h2>
+<p>The target audience of this book is moderately experienced developers with an interest in graphics programming. Prior graphics programming experience, particularly with <a href="https://www.opengl.org">OpenGL</a> will be particularly useful. Essentially this is the book I would have loved to have available when first starting out with Vulkan.</p>
+<h2><a class="header" href="#what-is-covered" id="what-is-covered">What Is Covered</a></h2>
+<p>This book is very code-heavy and implementation focused, as opposed to other resources that may be more focused on theory.</p>
+<h2><a class="header" href="#what-is-not-covered" id="what-is-not-covered">What Is Not Covered</a></h2>
+<p>This book will not go into detail on linear algebra concepts or mathematics, as there are already great resources available. This book may not go into as much depth on particular parts of the Vulkan API as other resources might. A list of useful external resources for building upon the content of this book can be found in the <code>Further Reading</code> section of the appendix.</p>
+<h2><a class="header" href="#final-project-preview" id="final-project-preview">Final Project Preview</a></h2>
+<h3><a class="header" href="#chapter-1" id="chapter-1">Chapter 1</a></h3>
+<p>Set up the project structure, get a window up and running, and create the boilerplate code used throughout the rest of the book. The code in this chapter will serve as the project's foundation.</p>
+<p><img src="images/chapter1.png" alt="file-structure" /></p>
 <h1><a class="header" href="#getting-started" id="getting-started">Getting Started</a></h1>
 <p>The source code for this book can be found on github:</p>
 <p><a href="https://github.com/matthewjberger/obsidian">https://github.com/matthewjberger/obsidian</a></p>
@@ -243,7 +262,7 @@ obsidian_app = { path = &quot;crates/obsidian_app&quot; }
 <p>Create the application crate as a library:</p>
 <pre><code class="language-bash">cargo new --lib crates/obsidian_app
 </code></pre>
-<p>Create and edit <code>crates/obsidian_app/src/app.rs</code> to contain:</p>
+<p>Create and edit <code>crates/obsidian_app/src/app.rs</code> to add an <code>Application</code> struct. This will eventually contain everything needed for an <code>Obsidian</code> application, including a physics world, an entity component system, the renderer itself, and more.</p>
 <pre><code class="language-rust noplaypen">pub struct Application;
 </code></pre>
 <p>Update <code>crates/obsidian_app/src/lib.rs</code>:</p>
@@ -266,7 +285,7 @@ obsidian = { path = &quot;..&quot; }
 <pre><code class="language-bash">&quot;Hello, world!&quot;
 </code></pre>
 <h1><a class="header" href="#creating-the-application" id="creating-the-application">Creating the Application</a></h1>
-<p>To make our application boilerplate reusable, we created the <code>obsidian_app</code> library. Now, we can start filling it out.</p>
+<p>To make our application boilerplate reusable, we created the <code>obsidian_app</code> library. Now, we can start filling it out!</p>
 <h2><a class="header" href="#configuring-the-application" id="configuring-the-application">Configuring the Application</a></h2>
 <p>Add an application configuration struct:</p>
 <pre><code class="language-rust noplaypen">pub struct AppConfig {
@@ -285,16 +304,93 @@ impl Default for AppConfig {
     }
 }
 </code></pre>
-<p>For error handling, we'll be using the <a href="https://github.com/dtolnay/anyhow">anyhow</a> crate.</p>
-<p>To setup a window, we'll be using the <a href="https://github.com/rust-windowing/winit">winit</a> crate. </p>
-<p>We will need to list these libraries as dependencies in <code>crates/obsidian_app/Cargo.toml</code> under the <code>[dependencies]</code> section:</p>
-<pre><code class="language-toml">[dependencies]
-anyhow = &quot;1.0.38&quot;
-winit = &quot;0.24.0
+<h2><a class="header" href="#dependencies-1" id="dependencies-1">Dependencies</a></h2>
+<p>We will need to pull in crates for <a href="https://github.com/rust-windowing/winit">windowing</a>, <a href="https://github.com/dtolnay/anyhow">error handling</a>, and the <a href="https://github.com/rust-lang/log">rust logger facade</a>.</p>
+<p>Add the following to <code>crates/obsidian_app/Cargo.toml</code>:</p>
+<pre><code class="language-toml">anyhow = &quot;1.0.34&quot;
+log = &quot;0.4.11&quot;
+winit = &quot;0.24.0&quot;
 </code></pre>
-<p>Using the <code>AppConfig</code>, we can create a <code>Window</code> and <code>EventLoop&lt;()&gt;</code> in <code>crates/obsidian_app/src/app.rs</code>:</p>
-<pre><code class="language-rust noplaypen">use anyhow::Result;
-use winit::{dpi::PhysicalSize, event_loop::EventLoop, window::Window, window::WindowBuilder};
+<p>And add the following to <code>viewer/Cargo.toml</code>:</p>
+<pre><code class="language-toml">anyhow = &quot;1.0.34&quot;
+log = &quot;0.4.11&quot;
+</code></pre>
+<h2><a class="header" href="#generalizing-the-application" id="generalizing-the-application">Generalizing the Application</a></h2>
+<p>The application can be broken down into discrete steps, such as initialization, updating, handling events, and more. This can be described with a trait:</p>
+<pre><code class="language-rust noplaypen">pub trait Run {
+    fn initialize(&amp;mut self, _application: &amp;mut Application) -&gt; Result&lt;()&gt; {
+        Ok(())
+    }
+
+    fn update(&amp;mut self, _application: &amp;mut Application) -&gt; Result&lt;()&gt; {
+        Ok(())
+    }
+}
+</code></pre>
+<p>Now we can create a function to execute any type that implements the trait:</p>
+<pre><code class="language-rust noplaypen">pub fn run_application(mut runner: impl Run + 'static, configuration: AppConfig) -&gt; Result&lt;()&gt; {
+    // TODO ...
+}
+</code></pre>
+<h2><a class="header" href="#the-event-loop" id="the-event-loop">The Event Loop</a></h2>
+<p>Now we can fill out the body of the <code>run_application</code> function.</p>
+<p>We can create the window, an instance of the application, and call the <code>initialize</code> function of the runner.</p>
+<pre><code class="language-rust noplaypen">    let (event_loop, _window) = create_window(&amp;configuration)?;
+
+    let mut application = Application {};
+
+    log::info!(&quot;Running Application&quot;);
+    runner.initialize(&amp;mut application)?;
+</code></pre>
+<p>The <code>winit</code> crate manages the event loop. For easy error handling, we will use a lambda that returns a <code>Result&lt;()&gt;</code> to handle each cycle. This lets us check for application errors and log them.</p>
+<p>Inside of the event loop we can also handle events and invoke the application runner's methods.</p>
+<blockquote>
+<p>The <a href="https://docs.rs/winit/0.24.0/winit/event_loop/enum.ControlFlow.html">control_flow</a> object allows controlling the main loop's behavior. For a game loop or realtime rendering application we will need to execute the loop continously, so we use <code>ControlFlow::Poll</code>.</p>
+</blockquote>
+<pre><code class="language-rust noplaypen">    event_loop.run(move |event, _, control_flow| {
+        let mut cycle_result = || -&gt; Result&lt;()&gt; {
+            *control_flow = ControlFlow::Poll;
+            match event {
+                Event::MainEventsCleared =&gt; {
+                    runner.update(&amp;mut application)?;
+                }
+                Event::WindowEvent {
+                    event: WindowEvent::CloseRequested,
+                    ..
+                } =&gt; {
+                    *control_flow = ControlFlow::Exit;
+                }
+                Event::LoopDestroyed =&gt; {
+                    info!(&quot;Exited application&quot;);
+                }
+                _ =&gt; {}
+            }
+            Ok(())
+        };
+        if let Err(error) = cycle_result() {
+            error!(&quot;Application Error: {}&quot;, error);
+        }
+    });
+
+</code></pre>
+<h2><a class="header" href="#source-code" id="source-code">Source Code</a></h2>
+<p>The full source for the <code>app</code> module code presented so far look like this:</p>
+<pre><code class="language-rust noplaypen">// crates/obsidian_app/src/app.rs
+use anyhow::Result;
+use log::{error, info};
+use winit::{
+    dpi::PhysicalSize,
+    event::{Event, WindowEvent},
+    event_loop::{ControlFlow, EventLoop},
+    window::{Window, WindowBuilder},
+};
+
+pub struct AppConfig {
+    pub width: u32,
+    pub height: u32,
+    pub title: String,
+    pub logfile_name: String,
+}
 
 pub fn create_window(config: &amp;AppConfig) -&gt; Result&lt;(EventLoop&lt;()&gt;, Window)&gt; {
     let event_loop = EventLoop::new();
@@ -306,8 +402,133 @@ pub fn create_window(config: &amp;AppConfig) -&gt; Result&lt;(EventLoop&lt;()&gt
 
     Ok((event_loop, window))
 }
+
+impl Default for AppConfig {
+    fn default() -&gt; Self {
+        Self {
+            width: 800,
+            height: 600,
+            title: &quot;Obsidian Application&quot;.to_string(),
+            logfile_name: &quot;obsidian.log&quot;.to_string(),
+        }
+    }
+}
+
+pub struct Application;
+
+pub trait Run {
+    fn initialize(&amp;mut self, _application: &amp;mut Application) -&gt; Result&lt;()&gt; {
+        Ok(())
+    }
+
+    fn update(&amp;mut self, _application: &amp;mut Application) -&gt; Result&lt;()&gt; {
+        Ok(())
+    }
+}
+
+pub fn run_application(mut runner: impl Run + 'static, configuration: AppConfig) -&gt; Result&lt;()&gt; {
+    let (event_loop, _window) = create_window(&amp;configuration)?;
+
+    let mut application = Application {};
+
+    log::info!(&quot;Running Application&quot;);
+    runner.initialize(&amp;mut application)?;
+
+    event_loop.run(move |event, _, control_flow| {
+        let mut cycle_result = || -&gt; Result&lt;()&gt; {
+            *control_flow = ControlFlow::Poll;
+            match event {
+                Event::MainEventsCleared =&gt; {
+                    runner.update(&amp;mut application)?;
+                }
+                Event::WindowEvent {
+                    event: WindowEvent::CloseRequested,
+                    ..
+                } =&gt; {
+                    *control_flow = ControlFlow::Exit;
+                }
+                Event::LoopDestroyed =&gt; {
+                    info!(&quot;Exited application&quot;);
+                }
+                _ =&gt; {}
+            }
+            Ok(())
+        };
+        if let Err(error) = cycle_result() {
+            error!(&quot;Application Error: {}&quot;, error);
+        }
+    });
+}
 </code></pre>
-<h1><a class="header" href="#creating-a-window" id="creating-a-window">Creating a Window</a></h1>
+<h2><a class="header" href="#creating-the-viewer" id="creating-the-viewer">Creating the Viewer</a></h2>
+<p>Finally, we can use our boilerplate code to create the <code>Viewer</code>.</p>
+<pre><code class="language-rust noplaypen">// obsidian/viewer/src/main.rs
+use anyhow::Result;
+use log::info;
+use obsidian::app::{run_application, AppConfig, Application, Run};
+
+pub struct Viewer;
+
+impl Run for Viewer {
+    fn initialize(&amp;mut self, _application: &amp;mut Application) -&gt; Result&lt;()&gt; {
+        info!(&quot;Viewer initialized&quot;);
+        Ok(())
+    }
+
+    fn update(&amp;mut self, _application: &amp;mut Application) -&gt; Result&lt;()&gt; {
+        Ok(())
+    }
+}
+
+fn main() -&gt; Result&lt;()&gt; {
+    let viewer = Viewer {};
+    run_application(
+        viewer,
+        AppConfig {
+            title: &quot;Obsidian Viewer&quot;.to_string(),
+            logfile_name: &quot;viewer.log&quot;.to_string(),
+            ..Default::default()
+        },
+    )
+}
+</code></pre>
+<p>Now, when you run the application with <code>cargo run --release</code> from the project root the application will display an empty window with a custom title!</p>
+<h1><a class="header" href="#the-logging-backend" id="the-logging-backend">The Logging Backend</a></h1>
+<p>In order for the logger facade functions to work, we will need to add a logging backend. For this project, we'll use <a href="https://github.com/drakulix/simplelog.rs">simplelog</a>.</p>
+<p>Add this dependency to <code>crates/obsidian_app/Cargo.toml</code>:</p>
+<pre><code class="language-toml">simplelog = { version = &quot;0.9.0&quot;, features = [&quot;termcolor&quot;] }
+</code></pre>
+<blockquote>
+<p>The <code>termcolor</code> feature allows for colored terminal log output.</p>
+</blockquote>
+<p>Now we can create a logger module to setup the logger backend.</p>
+<pre><code class="language-rust noplaypen">// crates/obsidian_app/src/lib.rs
+mod logger;
+...
+</code></pre>
+<pre><code class="language-rust noplaypen">// crates/obsidian_app/src/logger.rs
+use anyhow::{Context, Result};
+use simplelog::{CombinedLogger, Config, LevelFilter, TermLogger, TerminalMode, WriteLogger};
+use std::{fs::File, path::Path};
+
+pub fn create_logger(path: impl AsRef&lt;Path&gt;) -&gt; Result&lt;()&gt; {
+    let name = path.as_ref().display().to_string();
+    let error_message = format!(&quot;Failed to create log file named: {}&quot;, name);
+    let file = File::create(path).context(error_message)?;
+    CombinedLogger::init(vec![
+        TermLogger::new(LevelFilter::Info, Config::default(), TerminalMode::Mixed),
+        WriteLogger::new(LevelFilter::max(), Config::default(), file),
+    ])?;
+    Ok(())
+}
+</code></pre>
+<p>The <a href="https://docs.rs/simplelog/0.9.0/simplelog/struct.CombinedLogger.html">CombinedLogger</a> lets us create a <a href="https://docs.rs/simplelog/0.9.0/simplelog/struct.TermLogger.html">TermLogger</a> and a <a href="https://docs.rs/simplelog/0.9.0/simplelog/struct.WriteLogger.html">WriteLogger</a> at the same time. We will only log messages with the severity <a href="https://docs.rs/simplelog/0.9.0/simplelog/enum.Level.html#variant.Info">INFO</a> and above to the terminal, and we will log all messages to the configuration file.</p>
+<p>And finally we can invoke the <code>create_logger</code> function in our <code>run_application</code> method:</p>
+<pre><code class="language-rust noplaypen">pub fn run_application(mut runner: impl Run + 'static, configuration: AppConfig) -&gt; Result&lt;()&gt; {
+    create_logger(&amp;configuration.logfile_name)?;
+    ...
+}
+</code></pre>
 <h1><a class="header" href="#clearing-the-screen-with-vulkan" id="clearing-the-screen-with-vulkan">Clearing the Screen with Vulkan</a></h1>
 <h1><a class="header" href="#the-vulkan-context" id="the-vulkan-context">The Vulkan Context</a></h1>
 <h1><a class="header" href="#vulkan-instances" id="vulkan-instances">Vulkan Instances</a></h1>
@@ -315,8 +536,27 @@ pub fn create_window(config: &amp;AppConfig) -&gt; Result&lt;(EventLoop&lt;()&gt
 <h1><a class="header" href="#vulkan-logical-devices" id="vulkan-logical-devices">Vulkan Logical Devices</a></h1>
 <h1><a class="header" href="#the-amd-vulkan-memory-allocator" id="the-amd-vulkan-memory-allocator">The AMD Vulkan Memory Allocator</a></h1>
 <h1><a class="header" href="#appendix" id="appendix">Appendix</a></h1>
-<h1><a class="header" href="#a---keywords" id="a---keywords">A - Keywords</a></h1>
-<h1><a class="header" href="#b---vulkan-configurator" id="b---vulkan-configurator">B - Vulkan Configurator</a></h1>
+<h1><a class="header" href="#a---further-reading" id="a---further-reading">A - Further Reading</a></h1>
+<ul>
+<li>
+<p><a href="https://vulkan-tutorial.com/">The Vulkan Tutorial by Alexander Overvoorde</a></p>
+<p>This is where most people learn Vulkan. It goes over all the fundamentals of Vulkan and focuses on explaining the API and using it to make a graphics application.</p>
+</li>
+<li>
+<p><a href="https://github.com/adrien-ben/vulkan-tutorial-rs">A Rust Version of the Vulkan Tutorial</a></p>
+<p>This is an excellent Rust port of the C++ Vulkan Tutorial.</p>
+</li>
+<li>
+<p><a href="https://github.com/SaschaWillems/Vulkan">Sascha Willems Vulkan Tutorials</a></p>
+<p>Sascha Willems has a github repo full of a variety of examples of how to use the Vulkan API to achieve various graphics programming techniques. This is highly recommended for anyone using the Vulkan API.</p>
+</li>
+<li>
+<p><a href="https://learnopengl.com/">Learn OpenGL</a></p>
+<p>This is a website about graphics programming that focuses on OpenGL programming, but the techniques are all applicable to Vulkan.</p>
+</li>
+</ul>
+<h1><a class="header" href="#b---keywords" id="b---keywords">B - Keywords</a></h1>
+<h1><a class="header" href="#c---vulkan-configurator" id="c---vulkan-configurator">C - Vulkan Configurator</a></h1>
 
                     </main>
 

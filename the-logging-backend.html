@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Creating a Window - Let's Build a Renderer</title>
+        <title>The Logging Backend - Let's Build a Renderer</title>
         
         
 
@@ -92,7 +92,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="getting-started.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="project-setup.html"><strong aria-hidden="true">1.1.</strong> Project Setup</a></li><li class="chapter-item expanded "><a href="creating-an-application.html"><strong aria-hidden="true">1.2.</strong> Creating an Application</a></li><li class="chapter-item expanded "><a href="creating-a-window.html" class="active"><strong aria-hidden="true">1.3.</strong> Creating a Window</a></li></ol></li><li class="chapter-item expanded "><a href="clearing-the-screen-with-vulkan.html"><strong aria-hidden="true">2.</strong> Clearing the Screen with Vulkan</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="the-vulkan-context.html"><strong aria-hidden="true">2.1.</strong> The Vulkan Context</a></li><li class="chapter-item expanded "><a href="vulkan-instances.html"><strong aria-hidden="true">2.2.</strong> Vulkan Instances</a></li><li class="chapter-item expanded "><a href="vulkan-physical-devices.html"><strong aria-hidden="true">2.3.</strong> Vulkan Physical Devices</a></li><li class="chapter-item expanded "><a href="vulkan-logical-devices.html"><strong aria-hidden="true">2.4.</strong> Vulkan Logical Devices</a></li><li class="chapter-item expanded "><a href="amd-vulkan-memory-allocator.html"><strong aria-hidden="true">2.5.</strong> The AMD Vulkan Memory Allocator</a></li></ol></li><li class="chapter-item expanded "><a href="appendix.html"><strong aria-hidden="true">3.</strong> Appendix</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="appendix-keywords.html"><strong aria-hidden="true">3.1.</strong> A - Keywords</a></li><li class="chapter-item expanded "><a href="vulkan-configurator.html"><strong aria-hidden="true">3.2.</strong> B - Vulkan Configurator</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="getting-started.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="project-setup.html"><strong aria-hidden="true">1.1.</strong> Project Setup</a></li><li class="chapter-item expanded "><a href="creating-an-application.html"><strong aria-hidden="true">1.2.</strong> Creating an Application</a></li><li class="chapter-item expanded "><a href="the-logging-backend.html" class="active"><strong aria-hidden="true">1.3.</strong> The Logging Backend</a></li></ol></li><li class="chapter-item expanded "><a href="clearing-the-screen-with-vulkan.html"><strong aria-hidden="true">2.</strong> Clearing the Screen with Vulkan</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="the-vulkan-context.html"><strong aria-hidden="true">2.1.</strong> The Vulkan Context</a></li><li class="chapter-item expanded "><a href="vulkan-instances.html"><strong aria-hidden="true">2.2.</strong> Vulkan Instances</a></li><li class="chapter-item expanded "><a href="vulkan-physical-devices.html"><strong aria-hidden="true">2.3.</strong> Vulkan Physical Devices</a></li><li class="chapter-item expanded "><a href="vulkan-logical-devices.html"><strong aria-hidden="true">2.4.</strong> Vulkan Logical Devices</a></li><li class="chapter-item expanded "><a href="amd-vulkan-memory-allocator.html"><strong aria-hidden="true">2.5.</strong> The AMD Vulkan Memory Allocator</a></li></ol></li><li class="chapter-item expanded "><a href="appendix.html"><strong aria-hidden="true">3.</strong> Appendix</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="appendix-further-reading.html"><strong aria-hidden="true">3.1.</strong> A - Further Reading</a></li><li class="chapter-item expanded "><a href="appendix-keywords.html"><strong aria-hidden="true">3.2.</strong> B - Keywords</a></li><li class="chapter-item expanded "><a href="appendix-vulkan-configurator.html"><strong aria-hidden="true">3.3.</strong> C - Vulkan Configurator</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -158,7 +158,42 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#creating-a-window" id="creating-a-window">Creating a Window</a></h1>
+                        <h1><a class="header" href="#the-logging-backend" id="the-logging-backend">The Logging Backend</a></h1>
+<p>In order for the logger facade functions to work, we will need to add a logging backend. For this project, we'll use <a href="https://github.com/drakulix/simplelog.rs">simplelog</a>.</p>
+<p>Add this dependency to <code>crates/obsidian_app/Cargo.toml</code>:</p>
+<pre><code class="language-toml">simplelog = { version = &quot;0.9.0&quot;, features = [&quot;termcolor&quot;] }
+</code></pre>
+<blockquote>
+<p>The <code>termcolor</code> feature allows for colored terminal log output.</p>
+</blockquote>
+<p>Now we can create a logger module to setup the logger backend.</p>
+<pre><code class="language-rust noplaypen">// crates/obsidian_app/src/lib.rs
+mod logger;
+...
+</code></pre>
+<pre><code class="language-rust noplaypen">// crates/obsidian_app/src/logger.rs
+use anyhow::{Context, Result};
+use simplelog::{CombinedLogger, Config, LevelFilter, TermLogger, TerminalMode, WriteLogger};
+use std::{fs::File, path::Path};
+
+pub fn create_logger(path: impl AsRef&lt;Path&gt;) -&gt; Result&lt;()&gt; {
+    let name = path.as_ref().display().to_string();
+    let error_message = format!(&quot;Failed to create log file named: {}&quot;, name);
+    let file = File::create(path).context(error_message)?;
+    CombinedLogger::init(vec![
+        TermLogger::new(LevelFilter::Info, Config::default(), TerminalMode::Mixed),
+        WriteLogger::new(LevelFilter::max(), Config::default(), file),
+    ])?;
+    Ok(())
+}
+</code></pre>
+<p>The <a href="https://docs.rs/simplelog/0.9.0/simplelog/struct.CombinedLogger.html">CombinedLogger</a> lets us create a <a href="https://docs.rs/simplelog/0.9.0/simplelog/struct.TermLogger.html">TermLogger</a> and a <a href="https://docs.rs/simplelog/0.9.0/simplelog/struct.WriteLogger.html">WriteLogger</a> at the same time. We will only log messages with the severity <a href="https://docs.rs/simplelog/0.9.0/simplelog/enum.Level.html#variant.Info">INFO</a> and above to the terminal, and we will log all messages to the configuration file.</p>
+<p>And finally we can invoke the <code>create_logger</code> function in our <code>run_application</code> method:</p>
+<pre><code class="language-rust noplaypen">pub fn run_application(mut runner: impl Run + 'static, configuration: AppConfig) -&gt; Result&lt;()&gt; {
+    create_logger(&amp;configuration.logfile_name)?;
+    ...
+}
+</code></pre>
 
                     </main>
 
