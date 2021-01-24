@@ -86,7 +86,7 @@ The `winit` crate manages the event loop. For easy error handling, we will use a
 
 Inside of the event loop we can also handle events and invoke the application runner's methods.
 
-> The [control_flow](https://docs.rs/winit/0.24.0/winit/event_loop/enum.ControlFlow.html) object allows controlling the main loop's behavior. For a game loop or realtime rendering application we will need to execute the loop continously, so we use `ControlFlow::Poll`.
+> Note: The [control_flow](https://docs.rs/winit/0.24.0/winit/event_loop/enum.ControlFlow.html) object allows controlling the main loop's behavior. For a game loop or realtime rendering application we will need to execute the loop continously, so we use `ControlFlow::Poll`.
 
 ```rust,noplaypen
     event_loop.run(move |event, _, control_flow| {

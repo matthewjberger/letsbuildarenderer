@@ -8,7 +8,7 @@ Add this dependency to `crates/obsidian_app/Cargo.toml`:
 simplelog = { version = "0.9.0", features = ["termcolor"] }
 ```
 
-> The `termcolor` feature allows for colored terminal log output.
+> Note: The `termcolor` feature allows for colored terminal log output.
 
 Now we can create a logger module to setup the logger backend.
 
