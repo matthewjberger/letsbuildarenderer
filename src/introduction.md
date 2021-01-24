@@ -4,7 +4,7 @@ Welcome! This book will guide you through the creation and design of a 3D render
 
 ## Purpose
 
-As of January 2021, the resources for learning Vulkan are scarce. The existing resources largely focus on `C++` and cover various rendering techniques. This is excellent! However, the focus for many of these resources is not on building a structured program that goes beyond the scope of tutorial code. This book is meant to be used as a layer above those low level tutorials, demonstrating how to build a 3D world and render it realtime. This will be particularly of use to indie game developers looking to create a 3D game from scratch without getting overwhelmed.
+As of January 2021, the resources for learning Vulkan are scarce. The existing resources largely focus on `C++` and cover various rendering techniques. This is excellent! However, the focus for many of these resources is not on building a structured program that goes beyond the scope of tutorial code. This book is meant to be higher level, demonstrating how to build a 3D world and render it in realtime. This will be particularly of use to indie game developers looking to create a 3D game from scratch without getting overwhelmed.
 
 ## Why Rust?
 
