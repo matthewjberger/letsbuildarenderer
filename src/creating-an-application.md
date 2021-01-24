@@ -244,3 +244,5 @@ fn main() -> Result<()> {
 ```
 
 Now, when you run the application with `cargo run --release` from the project root the application will display an empty window with a custom title!
+
+![file-structure](images/chapter1.png)
