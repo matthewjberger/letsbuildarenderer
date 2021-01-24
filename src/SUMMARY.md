@@ -5,7 +5,7 @@
 * [Getting Started](getting-started.md)
   * [Project Setup](project-setup.md)
   * [Creating an Application](creating-an-application.md)
-  * [Creating a Window](creating-a-window.md)
+  * [The Logging Backend](the-logging-backend.md)
 
 * [Clearing the Screen with Vulkan](clearing-the-screen-with-vulkan.md)
   * [The Vulkan Context](the-vulkan-context.md)
@@ -15,5 +15,6 @@
   * [The AMD Vulkan Memory Allocator](amd-vulkan-memory-allocator.md)
 
 * [Appendix](appendix.md)
-  * [A - Keywords](appendix-keywords.md)
-  * [B - Vulkan Configurator](vulkan-configurator.md)
+  * [A - Further Reading](appendix-further-reading.md)
+  * [B - Keywords](appendix-keywords.md)
+  * [C - Vulkan Configurator](appendix-vulkan-configurator.md)

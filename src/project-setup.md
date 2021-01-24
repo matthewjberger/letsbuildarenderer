@@ -57,7 +57,7 @@ Create the application crate as a library:
 cargo new --lib crates/obsidian_app
 ```
 
-Create and edit `crates/obsidian_app/src/app.rs` to contain:
+Create and edit `crates/obsidian_app/src/app.rs` to add an `Application` struct. This will eventually contain everything needed for an `Obsidian` application, including a physics world, an entity component system, the renderer itself, and more.
 
 ```rust,noplaypen
 pub struct Application;
