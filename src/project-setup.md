@@ -8,7 +8,7 @@ The directory structure for the project will look like this:
 
 * `assets/`
   * `hdr/`
-    Contains hdri maps used for skyboxes and environment maps
+    Contains HDR maps used for skyboxes and environment mapping
   * `models/`
     Contains 3D assets, such as \*.gltf and \*.glb files
   * `shaders/`

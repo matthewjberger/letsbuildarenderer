@@ -1,6 +1,6 @@
 # Creating the Application
 
-To make our application boilerplate reusable, we created the `obsidian_app` library. Now, we can start filling this out.
+To make our application boilerplate reusable, we created the `obsidian_app` library. Now, we can start filling it out.
 
 ## Configuring the Application
 
