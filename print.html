@@ -94,7 +94,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded affix "><a href="final-project-preview.html">Final Project Preview</a></li><li class="chapter-item expanded "><a href="getting-started.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="project-setup.html"><strong aria-hidden="true">1.1.</strong> Project Setup</a></li><li class="chapter-item expanded "><a href="creating-an-application.html"><strong aria-hidden="true">1.2.</strong> Creating an Application</a></li><li class="chapter-item expanded "><a href="the-logging-backend.html"><strong aria-hidden="true">1.3.</strong> The Logging Backend</a></li></ol></li><li class="chapter-item expanded "><a href="clearing-the-screen-with-vulkan.html"><strong aria-hidden="true">2.</strong> Clearing the Screen with Vulkan</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="the-vulkan-context.html"><strong aria-hidden="true">2.1.</strong> The Vulkan Context</a></li><li class="chapter-item expanded "><a href="vulkan-instances.html"><strong aria-hidden="true">2.2.</strong> Vulkan Instances</a></li><li class="chapter-item expanded "><a href="vulkan-physical-devices.html"><strong aria-hidden="true">2.3.</strong> Vulkan Physical Devices</a></li><li class="chapter-item expanded "><a href="vulkan-logical-devices.html"><strong aria-hidden="true">2.4.</strong> Vulkan Logical Devices</a></li><li class="chapter-item expanded "><a href="amd-vulkan-memory-allocator.html"><strong aria-hidden="true">2.5.</strong> The AMD Vulkan Memory Allocator</a></li></ol></li><li class="chapter-item expanded "><a href="appendix.html"><strong aria-hidden="true">3.</strong> Appendix</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="appendix-further-reading.html"><strong aria-hidden="true">3.1.</strong> A - Further Reading</a></li><li class="chapter-item expanded "><a href="appendix-keywords.html"><strong aria-hidden="true">3.2.</strong> B - Keywords</a></li><li class="chapter-item expanded "><a href="appendix-vulkan-configurator.html"><strong aria-hidden="true">3.3.</strong> C - Vulkan Configurator</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded affix "><a href="final-project-preview.html">Final Project Preview</a></li><li class="chapter-item expanded "><a href="getting-started.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="project-setup.html"><strong aria-hidden="true">1.1.</strong> Project Setup</a></li><li class="chapter-item expanded "><a href="creating-an-application.html"><strong aria-hidden="true">1.2.</strong> Creating an Application</a></li><li class="chapter-item expanded "><a href="the-logging-backend.html"><strong aria-hidden="true">1.3.</strong> The Logging Backend</a></li></ol></li><li class="chapter-item expanded "><a href="creating-the-rendering-library.html"><strong aria-hidden="true">2.</strong> Creating the Rendering Library</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="render-trait.html"><strong aria-hidden="true">2.1.</strong> Render Trait</a></li><li class="chapter-item expanded "><a href="vulkan-backend.html"><strong aria-hidden="true">2.2.</strong> Vulkan Backend</a></li><li class="chapter-item expanded "><a href="using-the-renderer.html"><strong aria-hidden="true">2.3.</strong> Using the Renderer</a></li></ol></li><li class="chapter-item expanded "><a href="appendix.html"><strong aria-hidden="true">3.</strong> Appendix</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="appendix-further-reading.html"><strong aria-hidden="true">3.1.</strong> A - Further Reading</a></li><li class="chapter-item expanded "><a href="appendix-keywords.html"><strong aria-hidden="true">3.2.</strong> B - Keywords</a></li><li class="chapter-item expanded "><a href="appendix-vulkan-configurator.html"><strong aria-hidden="true">3.3.</strong> C - Vulkan Configurator</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -538,12 +538,163 @@ pub fn create_logger(path: impl AsRef&lt;Path&gt;) -&gt; Result&lt;()&gt; {
     ...
 }
 </code></pre>
-<h1><a class="header" href="#clearing-the-screen-with-vulkan" id="clearing-the-screen-with-vulkan">Clearing the Screen with Vulkan</a></h1>
-<h1><a class="header" href="#the-vulkan-context" id="the-vulkan-context">The Vulkan Context</a></h1>
-<h1><a class="header" href="#vulkan-instances" id="vulkan-instances">Vulkan Instances</a></h1>
-<h1><a class="header" href="#vulkan-physical-devices" id="vulkan-physical-devices">Vulkan Physical Devices</a></h1>
-<h1><a class="header" href="#vulkan-logical-devices" id="vulkan-logical-devices">Vulkan Logical Devices</a></h1>
-<h1><a class="header" href="#the-amd-vulkan-memory-allocator" id="the-amd-vulkan-memory-allocator">The AMD Vulkan Memory Allocator</a></h1>
+<h1><a class="header" href="#creating-the-rendering-library" id="creating-the-rendering-library">Creating the Rendering Library</a></h1>
+<p>To keep the rendering code separated from the rest of the codebase, we will create a new library called <code>obsidian_render</code>.</p>
+<h2><a class="header" href="#adding-the-render-crate" id="adding-the-render-crate">Adding the Render Crate</a></h2>
+<p>To start, we can create a crate for handling graphics.</p>
+<pre><code class="language-bash">cargo new --lib crates/obsidian_render
+</code></pre>
+<p>Then we can link <code>obsidian</code> against the <code>obsidian_render</code> library, by listing it as a dependency in <code>obsidian/Cargo.toml</code></p>
+<pre><code class="language-toml">[dependencies]
+...
+obsidian_render = { path = &quot;crates/obsidian_render&quot; }
+</code></pre>
+<p>and expose it as a library module.</p>
+<pre><code class="language-rust noplaypen">// src/lib.rs
+
+...
+
+pub mod render {
+    pub use obsidian_render::*;
+}
+</code></pre>
+<h3><a class="header" href="#dependencies-2" id="dependencies-2">Dependencies</a></h3>
+<p>Add dependencies for error handling, logging, and a new dependency named <a href="https://github.com/rust-windowing/raw-window-handle">raw-window-handle</a> to <code>crates/obsidian_render/Cargo.toml</code>.</p>
+<pre><code class="language-toml">anyhow = &quot;1.0.34&quot;
+log = &quot;0.4.11&quot;
+raw-window-handle = &quot;0.3.3&quot;
+</code></pre>
+<blockquote>
+<p><code>raw-window-handle</code> is a library that abstracts platform specific window handles. The <code>winit</code> library uses the abstraction from this library to provide a window handle via the <code>HasRawWindowHandle</code> trait implementation on the <code>Window</code> type.</p>
+</blockquote>
+<h1><a class="header" href="#render-trait" id="render-trait">Render Trait</a></h1>
+<p>To prevent coupling any one specific backend to the rest of the application, the render library can expose the renderer via a <code>Render</code> interface and consumers of the library can request a specific backend via a <code>Backend</code> enum. The <code>Render</code> interface is not intended to be a low level common abstraction over various graphics API's, but rather a high level abstraction meant to render the 3D world we will be creating later in this book.</p>
+<blockquote>
+<p>There is an excellent cross-platform graphics and compute abstraction library in the rust ecosystem named <a href="https://github.com/gfx-rs/gfx">gfx-rs</a>.</p>
+</blockquote>
+<h2><a class="header" href="#the-render-module" id="the-render-module">The Render Module</a></h2>
+<p>Create a new module named <code>render.rs</code></p>
+<pre><code class="language-bash">touch crates/obsidian_render/src/render.rs
+</code></pre>
+<p>Update the <code>crates/obsidian_render/src/lib.rs</code> to list the new module:</p>
+<pre><code class="language-rust noplaypen">pub mod render;
+pub use crate::render::{Backend, Render};
+</code></pre>
+<p>We can list our graphics backends with an enum:</p>
+<pre><code class="language-rust noplaypen">pub enum Backend {
+    Vulkan,
+}
+</code></pre>
+<p>The <code>Render</code> trait can be written as:</p>
+<pre><code class="language-rust noplaypen">pub trait Render {
+    fn render(
+        &amp;mut self,
+        dimensions: &amp;[u32; 2],
+    ) -&gt; Result&lt;()&gt;;
+}
+</code></pre>
+<blockquote>
+<p>The <code>render</code> call will eventually be given a parameter containing a description of our <code>World</code> to render. The <code>World</code> implementation will come in a later chapter.</p>
+</blockquote>
+<h1><a class="header" href="#vulkan-backend" id="vulkan-backend">Vulkan Backend</a></h1>
+<p>Now that the <code>Render</code> trait exists, we will need to create a backend that implements it.</p>
+<h2><a class="header" href="#render-backend-feature-flags" id="render-backend-feature-flags">Render Backend Feature Flags</a></h2>
+<p>To allow compiling a specific backend, we will use <a href="https://doc.rust-lang.org/cargo/reference/features.html">feature flags</a>. For the purpose of this book, we will only be implementing the <code>Vulkan</code> backend so it will be a default feature.</p>
+<pre><code class="language-toml"># crates/obsidian_render/Cargo.toml
+[features]
+default = [&quot;vulkan&quot;]
+vulkan = [] 
+</code></pre>
+<h2><a class="header" href="#vulkan-render-backend" id="vulkan-render-backend">Vulkan Render Backend</a></h2>
+<p>Create a new module named <code>vulkan.rs</code></p>
+<pre><code class="language-bash">touch crates/obsidian_render/src/vulkan.rs
+</code></pre>
+<p>Update the <code>crates/obsidian_render/src/lib.rs</code> to list the new module:</p>
+<pre><code class="language-rust noplaypen">#[cfg(feature = &quot;vulkan&quot;)]
+mod vulkan;
+</code></pre>
+<p>And declare the <code>VulkanRender</code> as a plain struct that implements the <code>Render</code> trait:</p>
+<pre><code class="language-rust noplaypen">// crates/obsidian_render/src/vulkan.rs
+use crate::Render;
+use anyhow::Result;
+use raw_window_handle::HasRawWindowHandle;
+use log::info;
+
+pub(crate) struct VulkanRenderer;
+
+impl Render for VulkanRenderer {
+    fn render(
+        &amp;mut self,
+        _dimensions: &amp;[u32; 2],
+    ) -&gt; Result&lt;()&gt; {
+        Ok(())
+    }
+}
+
+impl VulkanRenderer {
+    pub fn new(
+        _window_handle: &amp;impl HasRawWindowHandle,
+        _dimensions: &amp;[u32; 2],
+    ) -&gt; Result&lt;Self&gt; {
+        info!(&quot;Created Vulkan render backend&quot;);
+        Ok(Self{})
+    }
+} 
+</code></pre>
+<h2><a class="header" href="#instantiating-graphics-backends" id="instantiating-graphics-backends">Instantiating Graphics Backends</a></h2>
+<p>We can now write an associated method for the <code>Render</code> trait to provide a <a href="https://doc.rust-lang.org/book/ch17-02-trait-objects.html">trait object</a> (some type implementing the <code>Render</code> trait) by specifying the desired backend.</p>
+<pre><code class="language-rust noplaypen">// creates/obsidian_render/src/render.rs
+#[cfg(feature = &quot;vulkan&quot;)]
+use crate::vulkan::VulkanRenderer;
+
+impl dyn Render {
+    pub fn create_backend(
+        backend: &amp;Backend,
+        window_handle: &amp;impl HasRawWindowHandle,
+        dimensions: &amp;[u32; 2],
+    ) -&gt; Result&lt;impl Render&gt; {
+        match backend {
+            Backend::Vulkan =&gt; VulkanRenderer::new(window_handle, dimensions),
+        }
+    }
+}
+</code></pre>
+<h1><a class="header" href="#using-the-renderer" id="using-the-renderer">Using the Renderer</a></h1>
+<p>Now we can instantiate a renderer in our <code>obsidian_app</code> library, before moving on to filling out the Vulkan graphics backend.</p>
+<p>List the <code>obsidian_render</code> library as a dependency in <code>crates/obsidian_app/Cargo.toml</code>:</p>
+<pre><code class="language-toml">[dependencies]
+...
+obsidian_render = { path = &quot;../obsidian_render&quot; }
+</code></pre>
+<p>Now we can instantiate the renderer by modifying <code>crates/obsidian_app/src/app.rs</code>.</p>
+<p>Import the library types:</p>
+<pre><code class="language-rust noplaypen">use obsidian_render::{Render, Backend};
+</code></pre>
+<p>Add a <code>renderer</code> property to the <code>Application</code> struct as a boxed trait object, and instantiate it in a constructor:</p>
+<pre><code class="language-rust noplaypen">pub struct Application {
+    pub renderer: Box&lt;dyn Render&gt;,
+}
+
+impl Application {
+    pub fn new(window: &amp;Window) -&gt; Result&lt;Self&gt; {
+        let logical_size = window.inner_size();
+        let window_dimensions = [logical_size.width, logical_size.height];
+        let renderer = Box::new(Render::create_backend(
+            &amp;Backend::Vulkan,
+            window,
+            &amp;window_dimensions,
+        )?);
+        Ok(Self { renderer })
+    }
+}
+</code></pre>
+<p>The <code>Application</code> can now be created with the constructor in the <code>run_application</code> method:</p>
+<pre><code class="language-rust noplaypen">// '_window' becomes 'window' here since it is now used
+let (event_loop, window) = create_window(&amp;configuration)?;
+
+let mut application = Application::new(&amp;window)?;
+</code></pre>
+<p>If you run the program now with <code>cargo run --release</code>, the log output should include a message saying that the Vulkan render backend was created.</p>
 <h1><a class="header" href="#appendix" id="appendix">Appendix</a></h1>
 <h1><a class="header" href="#a---further-reading" id="a---further-reading">A - Further Reading</a></h1>
 <ul>

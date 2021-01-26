@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>The Vulkan Context - Let's Build a Renderer</title>
+        <title>Creating the Rendering Library - Let's Build a Renderer</title>
         
         
 
@@ -92,7 +92,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded affix "><a href="final-project-preview.html">Final Project Preview</a></li><li class="chapter-item expanded "><a href="getting-started.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="project-setup.html"><strong aria-hidden="true">1.1.</strong> Project Setup</a></li><li class="chapter-item expanded "><a href="creating-an-application.html"><strong aria-hidden="true">1.2.</strong> Creating an Application</a></li><li class="chapter-item expanded "><a href="the-logging-backend.html"><strong aria-hidden="true">1.3.</strong> The Logging Backend</a></li></ol></li><li class="chapter-item expanded "><a href="clearing-the-screen-with-vulkan.html"><strong aria-hidden="true">2.</strong> Clearing the Screen with Vulkan</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="the-vulkan-context.html" class="active"><strong aria-hidden="true">2.1.</strong> The Vulkan Context</a></li><li class="chapter-item expanded "><a href="vulkan-instances.html"><strong aria-hidden="true">2.2.</strong> Vulkan Instances</a></li><li class="chapter-item expanded "><a href="vulkan-physical-devices.html"><strong aria-hidden="true">2.3.</strong> Vulkan Physical Devices</a></li><li class="chapter-item expanded "><a href="vulkan-logical-devices.html"><strong aria-hidden="true">2.4.</strong> Vulkan Logical Devices</a></li><li class="chapter-item expanded "><a href="amd-vulkan-memory-allocator.html"><strong aria-hidden="true">2.5.</strong> The AMD Vulkan Memory Allocator</a></li></ol></li><li class="chapter-item expanded "><a href="appendix.html"><strong aria-hidden="true">3.</strong> Appendix</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="appendix-further-reading.html"><strong aria-hidden="true">3.1.</strong> A - Further Reading</a></li><li class="chapter-item expanded "><a href="appendix-keywords.html"><strong aria-hidden="true">3.2.</strong> B - Keywords</a></li><li class="chapter-item expanded "><a href="appendix-vulkan-configurator.html"><strong aria-hidden="true">3.3.</strong> C - Vulkan Configurator</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded affix "><a href="final-project-preview.html">Final Project Preview</a></li><li class="chapter-item expanded "><a href="getting-started.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="project-setup.html"><strong aria-hidden="true">1.1.</strong> Project Setup</a></li><li class="chapter-item expanded "><a href="creating-an-application.html"><strong aria-hidden="true">1.2.</strong> Creating an Application</a></li><li class="chapter-item expanded "><a href="the-logging-backend.html"><strong aria-hidden="true">1.3.</strong> The Logging Backend</a></li></ol></li><li class="chapter-item expanded "><a href="creating-the-rendering-library.html" class="active"><strong aria-hidden="true">2.</strong> Creating the Rendering Library</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="render-trait.html"><strong aria-hidden="true">2.1.</strong> Render Trait</a></li><li class="chapter-item expanded "><a href="vulkan-backend.html"><strong aria-hidden="true">2.2.</strong> Vulkan Backend</a></li><li class="chapter-item expanded "><a href="using-the-renderer.html"><strong aria-hidden="true">2.3.</strong> Using the Renderer</a></li></ol></li><li class="chapter-item expanded "><a href="appendix.html"><strong aria-hidden="true">3.</strong> Appendix</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="appendix-further-reading.html"><strong aria-hidden="true">3.1.</strong> A - Further Reading</a></li><li class="chapter-item expanded "><a href="appendix-keywords.html"><strong aria-hidden="true">3.2.</strong> B - Keywords</a></li><li class="chapter-item expanded "><a href="appendix-vulkan-configurator.html"><strong aria-hidden="true">3.3.</strong> C - Vulkan Configurator</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -158,20 +158,48 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#the-vulkan-context" id="the-vulkan-context">The Vulkan Context</a></h1>
+                        <h1><a class="header" href="#creating-the-rendering-library" id="creating-the-rendering-library">Creating the Rendering Library</a></h1>
+<p>To keep the rendering code separated from the rest of the codebase, we will create a new library called <code>obsidian_render</code>.</p>
+<h2><a class="header" href="#adding-the-render-crate" id="adding-the-render-crate">Adding the Render Crate</a></h2>
+<p>To start, we can create a crate for handling graphics.</p>
+<pre><code class="language-bash">cargo new --lib crates/obsidian_render
+</code></pre>
+<p>Then we can link <code>obsidian</code> against the <code>obsidian_render</code> library, by listing it as a dependency in <code>obsidian/Cargo.toml</code></p>
+<pre><code class="language-toml">[dependencies]
+...
+obsidian_render = { path = &quot;crates/obsidian_render&quot; }
+</code></pre>
+<p>and expose it as a library module.</p>
+<pre><code class="language-rust noplaypen">// src/lib.rs
+
+...
+
+pub mod render {
+    pub use obsidian_render::*;
+}
+</code></pre>
+<h3><a class="header" href="#dependencies" id="dependencies">Dependencies</a></h3>
+<p>Add dependencies for error handling, logging, and a new dependency named <a href="https://github.com/rust-windowing/raw-window-handle">raw-window-handle</a> to <code>crates/obsidian_render/Cargo.toml</code>.</p>
+<pre><code class="language-toml">anyhow = &quot;1.0.34&quot;
+log = &quot;0.4.11&quot;
+raw-window-handle = &quot;0.3.3&quot;
+</code></pre>
+<blockquote>
+<p><code>raw-window-handle</code> is a library that abstracts platform specific window handles. The <code>winit</code> library uses the abstraction from this library to provide a window handle via the <code>HasRawWindowHandle</code> trait implementation on the <code>Window</code> type.</p>
+</blockquote>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="clearing-the-screen-with-vulkan.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="the-logging-backend.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
                         
-                            <a rel="next" href="vulkan-instances.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="render-trait.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -183,13 +211,13 @@
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a rel="prev" href="clearing-the-screen-with-vulkan.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="the-logging-backend.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a rel="next" href="vulkan-instances.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="render-trait.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
