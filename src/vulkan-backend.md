@@ -47,7 +47,7 @@ pub(crate) use self::render::VulkanRenderBackend;
 mod render;
 ```
 
-Declare the `VulkanRender` as a plain struct that implements the `Render` trait:
+Declare the `VulkanRenderBackend` as a plain struct that implements the `Render` trait:
 
 ```rust,noplaypen
 // crates/obsidian_render/src/vulkan/render.rs
