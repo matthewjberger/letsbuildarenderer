@@ -606,23 +606,34 @@ default = [&quot;vulkan&quot;]
 vulkan = [] 
 </code></pre>
 <h2><a class="header" href="#vulkan-render-backend" id="vulkan-render-backend">Vulkan Render Backend</a></h2>
-<p>Create a new module named <code>vulkan.rs</code></p>
+<h3><a class="header" href="#setting-up-the-backend" id="setting-up-the-backend">Setting Up the Backend</a></h3>
+<p>Create a new module named <code>vulkan.rs</code> and a folder for its modules:</p>
 <pre><code class="language-bash">touch crates/obsidian_render/src/vulkan.rs
+mkdir crates/obsidian_render/src/vulkan
 </code></pre>
 <p>Update the <code>crates/obsidian_render/src/lib.rs</code> to list the new module:</p>
 <pre><code class="language-rust noplaypen">#[cfg(feature = &quot;vulkan&quot;)]
 mod vulkan;
 </code></pre>
-<p>And declare the <code>VulkanRender</code> as a plain struct that implements the <code>Render</code> trait:</p>
-<pre><code class="language-rust noplaypen">// crates/obsidian_render/src/vulkan.rs
+<h3><a class="header" href="#creating-the-vulkan-render-module" id="creating-the-vulkan-render-module">Creating the Vulkan Render Module</a></h3>
+<p>Create a file for the Vulkan specific render module:</p>
+<pre><code class="language-bash">touch crates/obsidian_render/src/vulkan/render.rs
+</code></pre>
+<p>Declare it as a module, and expose the <code>VulkanRenderBackend</code> to the crate:</p>
+<pre><code class="language-rust noplaypen">pub(crate) use self::render::VulkanRenderBackend;
+
+mod render;
+</code></pre>
+<p>Declare the <code>VulkanRender</code> as a plain struct that implements the <code>Render</code> trait:</p>
+<pre><code class="language-rust noplaypen">// crates/obsidian_render/src/vulkan/render.rs
 use crate::Render;
 use anyhow::Result;
 use raw_window_handle::HasRawWindowHandle;
 use log::info;
 
-pub(crate) struct VulkanRenderer;
+pub(crate) struct VulkanRenderBackend;
 
-impl Render for VulkanRenderer {
+impl Render for VulkanRenderBackend {
     fn render(
         &amp;mut self,
         _dimensions: &amp;[u32; 2],
@@ -631,7 +642,7 @@ impl Render for VulkanRenderer {
     }
 }
 
-impl VulkanRenderer {
+impl VulkanRenderBackend {
     pub fn new(
         _window_handle: &amp;impl HasRawWindowHandle,
         _dimensions: &amp;[u32; 2],
@@ -645,7 +656,7 @@ impl VulkanRenderer {
 <p>We can now write an associated method for the <code>Render</code> trait to provide a <a href="https://doc.rust-lang.org/book/ch17-02-trait-objects.html">trait object</a> (some type implementing the <code>Render</code> trait) by specifying the desired backend.</p>
 <pre><code class="language-rust noplaypen">// creates/obsidian_render/src/render.rs
 #[cfg(feature = &quot;vulkan&quot;)]
-use crate::vulkan::VulkanRenderer;
+use crate::vulkan::VulkanRenderBackend;
 
 impl dyn Render {
     pub fn create_backend(
@@ -654,7 +665,7 @@ impl dyn Render {
         dimensions: &amp;[u32; 2],
     ) -&gt; Result&lt;impl Render&gt; {
         match backend {
-            Backend::Vulkan =&gt; VulkanRenderer::new(window_handle, dimensions),
+            Backend::Vulkan =&gt; VulkanRenderBackend::new(window_handle, dimensions),
         }
     }
 }
