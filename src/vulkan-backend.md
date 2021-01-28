@@ -15,10 +15,13 @@ vulkan = []
 
 ## Vulkan Render Backend
 
-Create a new module named `vulkan.rs`
+### Setting Up the Backend
+
+Create a new module named `vulkan.rs` and a folder for its modules:
 
 ```bash
 touch crates/obsidian_render/src/vulkan.rs
+mkdir crates/obsidian_render/src/vulkan
 ```
 
 Update the `crates/obsidian_render/src/lib.rs` to list the new module:
@@ -28,18 +31,34 @@ Update the `crates/obsidian_render/src/lib.rs` to list the new module:
 mod vulkan;
 ```
 
-And declare the `VulkanRender` as a plain struct that implements the `Render` trait:
+### Creating the Vulkan Render Module
+
+Create a file for the Vulkan specific render module:
+
+```bash
+touch crates/obsidian_render/src/vulkan/render.rs
+```
+
+Declare it as a module, and expose the `VulkanRenderBackend` to the crate:
 
 ```rust,noplaypen
-// crates/obsidian_render/src/vulkan.rs
+pub(crate) use self::render::VulkanRenderBackend;
+
+mod render;
+```
+
+Declare the `VulkanRender` as a plain struct that implements the `Render` trait:
+
+```rust,noplaypen
+// crates/obsidian_render/src/vulkan/render.rs
 use crate::Render;
 use anyhow::Result;
 use raw_window_handle::HasRawWindowHandle;
 use log::info;
 
-pub(crate) struct VulkanRenderer;
+pub(crate) struct VulkanRenderBackend;
 
-impl Render for VulkanRenderer {
+impl Render for VulkanRenderBackend {
     fn render(
         &mut self,
         _dimensions: &[u32; 2],
@@ -48,7 +67,7 @@ impl Render for VulkanRenderer {
     }
 }
 
-impl VulkanRenderer {
+impl VulkanRenderBackend {
     pub fn new(
         _window_handle: &impl HasRawWindowHandle,
         _dimensions: &[u32; 2],
@@ -66,7 +85,7 @@ We can now write an associated method for the `Render` trait to provide a [trait
 ```rust,noplaypen
 // creates/obsidian_render/src/render.rs
 #[cfg(feature = "vulkan")]
-use crate::vulkan::VulkanRenderer;
+use crate::vulkan::VulkanRenderBackend;
 
 impl dyn Render {
     pub fn create_backend(
@@ -75,7 +94,7 @@ impl dyn Render {
         dimensions: &[u32; 2],
     ) -> Result<impl Render> {
         match backend {
-            Backend::Vulkan => VulkanRenderer::new(window_handle, dimensions),
+            Backend::Vulkan => VulkanRenderBackend::new(window_handle, dimensions),
         }
     }
 }
