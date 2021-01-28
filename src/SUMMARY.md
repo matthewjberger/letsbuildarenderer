@@ -14,6 +14,7 @@
   * [Using the Renderer](using-the-renderer.md)
   * [Vulkan Context](vulkan-context.md)
     * [Vulkan Instance](vulkan-instance.md)
+    * [Vulkan Surface](vulkan-surface.md)
     * [Vulkan Physical Device](vulkan-physical-device.md)
     * [Vulkan Logical Device](vulkan-logical-device.md)
 
