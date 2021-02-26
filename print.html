@@ -94,7 +94,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded affix "><a href="final-project-preview.html">Final Project Preview</a></li><li class="chapter-item expanded "><a href="getting-started.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="project-setup.html"><strong aria-hidden="true">1.1.</strong> Project Setup</a></li><li class="chapter-item expanded "><a href="creating-an-application.html"><strong aria-hidden="true">1.2.</strong> Creating an Application</a></li><li class="chapter-item expanded "><a href="the-logging-backend.html"><strong aria-hidden="true">1.3.</strong> The Logging Backend</a></li></ol></li><li class="chapter-item expanded "><a href="creating-the-rendering-library.html"><strong aria-hidden="true">2.</strong> Creating the Rendering Library</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="render-trait.html"><strong aria-hidden="true">2.1.</strong> Render Trait</a></li><li class="chapter-item expanded "><a href="vulkan-backend.html"><strong aria-hidden="true">2.2.</strong> Vulkan Backend</a></li><li class="chapter-item expanded "><a href="using-the-renderer.html"><strong aria-hidden="true">2.3.</strong> Using the Renderer</a></li></ol></li><li class="chapter-item expanded "><a href="appendix.html"><strong aria-hidden="true">3.</strong> Appendix</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="appendix-further-reading.html"><strong aria-hidden="true">3.1.</strong> A - Further Reading</a></li><li class="chapter-item expanded "><a href="appendix-keywords.html"><strong aria-hidden="true">3.2.</strong> B - Keywords</a></li><li class="chapter-item expanded "><a href="appendix-vulkan-configurator.html"><strong aria-hidden="true">3.3.</strong> C - Vulkan Configurator</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded affix "><a href="final-project-preview.html">Final Project Preview</a></li><li class="chapter-item expanded "><a href="getting-started.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="project-setup.html"><strong aria-hidden="true">1.1.</strong> Project Setup</a></li><li class="chapter-item expanded "><a href="creating-an-application.html"><strong aria-hidden="true">1.2.</strong> Creating an Application</a></li><li class="chapter-item expanded "><a href="the-logging-backend.html"><strong aria-hidden="true">1.3.</strong> The Logging Backend</a></li></ol></li><li class="chapter-item expanded "><a href="creating-the-rendering-library.html"><strong aria-hidden="true">2.</strong> Creating the Rendering Library</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="render-trait.html"><strong aria-hidden="true">2.1.</strong> Render Trait</a></li><li class="chapter-item expanded "><a href="vulkan-backend.html"><strong aria-hidden="true">2.2.</strong> Vulkan Backend</a></li><li class="chapter-item expanded "><a href="using-the-renderer.html"><strong aria-hidden="true">2.3.</strong> Using the Renderer</a></li><li class="chapter-item expanded "><a href="vulkan-context.html"><strong aria-hidden="true">2.4.</strong> Vulkan Context</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="vulkan-instance.html"><strong aria-hidden="true">2.4.1.</strong> Vulkan Instance</a></li><li class="chapter-item expanded "><a href="vulkan-surface.html"><strong aria-hidden="true">2.4.2.</strong> Vulkan Surface</a></li><li class="chapter-item expanded "><a href="vulkan-physical-device.html"><strong aria-hidden="true">2.4.3.</strong> Vulkan Physical Device</a></li><li class="chapter-item expanded "><a href="vulkan-logical-device.html"><strong aria-hidden="true">2.4.4.</strong> Vulkan Logical Device</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="appendix.html"><strong aria-hidden="true">3.</strong> Appendix</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="appendix-further-reading.html"><strong aria-hidden="true">3.1.</strong> A - Further Reading</a></li><li class="chapter-item expanded "><a href="appendix-keywords.html"><strong aria-hidden="true">3.2.</strong> B - Keywords</a></li><li class="chapter-item expanded "><a href="appendix-vulkan-configurator.html"><strong aria-hidden="true">3.3.</strong> C - Vulkan Configurator</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -706,6 +706,74 @@ let (event_loop, window) = create_window(&amp;configuration)?;
 let mut application = Application::new(&amp;window)?;
 </code></pre>
 <p>If you run the program now with <code>cargo run --release</code>, the log output should include a message saying that the Vulkan render backend was created.</p>
+<h1><a class="header" href="#vulkan-context" id="vulkan-context">Vulkan Context</a></h1>
+<p>Now we can start using Vulkan! This section will detail a self contained structure for setting up and store the fundamental objects required to run a Vulkan application.</p>
+<blockquote>
+<p>From this point on in the book, the instructions for setting up and creating the files will not detail each line and step, and will rely on the accompanying source code for reference. All important sections of code will be explained, however!</p>
+</blockquote>
+<p>The structure will be called a Vulkan <code>Context</code>. This is not an official Vulkan term, but rather the name for our grouping of Vulkan objects.</p>
+<pre><code class="language-rust noplaypen">pub struct Context {
+    pub allocator: Arc&lt;vk_mem::Allocator&gt;,
+    pub device: Arc&lt;Device&gt;,
+    pub physical_device: PhysicalDevice,
+    pub surface: Option&lt;Surface&gt;,
+    pub instance: Instance,
+    pub entry: ash::Entry,
+}
+</code></pre>
+<p>The order the struct fields are declared in determines the order that they are <code>Drop</code>ped in. This will become important later, as cleaning up Vulkan resources has to happen in a particular order. Resources must not be in use when they are destructed, so declaring the struct this way enforces the correct order.</p>
+<p>In reverse order, the fields are as follows.</p>
+<ul>
+<li>
+<p><code>entry</code></p>
+<p>The function loader from the <code>ash</code> library.</p>
+</li>
+<li>
+<p><code>instance</code></p>
+<p>A wrapper around a <a href="https://docs.rs/ash/0.31.0/ash/vk/struct.Instance.html"><code>vk::Instance</code></a>, which stores application state because there is no global state in Vulkan.</p>
+</li>
+<li>
+<p><code>surface</code></p>
+<p>A wrapper around a <a href="https://docs.rs/ash/0.31.0/ash/extensions/khr/struct.Surface.html"><code>ash::extension::khr::Surface</code></a>. A surface is required when rendering to a window.</p>
+</li>
+<li>
+<p><code>physical_device</code></p>
+<p>A wrapper around a <a href="https://docs.rs/ash/0.31.0/ash/vk/struct.PhysicalDevice.html"><code>vk::PhysicalDevice</code></a>. On simple systems, this a physical device represents a specific, physical GPU.</p>
+</li>
+<li>
+<p><code>device</code></p>
+<p>A wrapper around a <a href="https://docs.rs/ash/0.31.0/ash/vk/struct.Device.html"><code>vk::Device</code></a>. A logical device represents the application's view of the physical device. Vulkan calls will be made primarily on this object.</p>
+</li>
+<li>
+<p><code>allocator</code></p>
+<p>Vulkan requires the application to handle allocating memory on its own. Thankfully, AMD has released a library that does this task well, called the <a href="https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator">Vulkan Memory Allocator</a>. The rust bindings are provided by <a href="https://github.com/gwihlidal/vk-mem-rs">vk-mem-rs</a>. Using a type from the <code>vk-mem-rs</code> library, we can create and store a memory allocator.</p>
+</li>
+</ul>
+<h2><a class="header" href="#vulkan-handles" id="vulkan-handles">Vulkan Handles</a></h2>
+<p>Vulkan objects are constructed via API calls, and return handles. The wrappers we will create instantiate particular Vulkan objects, store their handles, and implement the <code>Drop</code> trait to call a <code>destroy_instance</code> API call which frees the resource. This intentionally ties the lifetime of the Vulkan object to lifetime of the Rust wrapper type.</p>
+<h1><a class="header" href="#vulkan-instance" id="vulkan-instance">Vulkan Instance</a></h1>
+<p>The first wrapper needed to create our Vulkan context will be the <code>Instance</code>. This is a wrapper around the <code>ash::Instance</code> type.</p>
+<pre><code class="language-rust noplaypen">pub struct Instance {
+    pub handle: ash::Instance,
+}
+</code></pre>
+<p>The constructor on this wrapper is as follows.</p>
+<pre><code class="language-rust noplaypen">pub fn new(entry: &amp;ash::Entry, extensions: &amp;[*const i8], layers: &amp;[*const i8]) -&gt; Result&lt;Self&gt; {
+    let application_create_info = Self::application_create_info()?;
+    Self::check_layers_supported(entry, &amp;layers)?;
+
+    let instance_create_info = vk::InstanceCreateInfo::builder()
+        .application_info(&amp;application_create_info)
+        .enabled_extension_names(extensions)
+        .enabled_layer_names(layers);
+
+    let handle = unsafe { entry.create_instance(&amp;instance_create_info, None) }?;
+    Ok(Self { handle })
+}
+</code></pre>
+<h1><a class="header" href="#vulkan-surface" id="vulkan-surface">Vulkan Surface</a></h1>
+<h1><a class="header" href="#vulkan-physical-device" id="vulkan-physical-device">Vulkan Physical Device</a></h1>
+<h1><a class="header" href="#vulkan-logical-device" id="vulkan-logical-device">Vulkan Logical Device</a></h1>
 <h1><a class="header" href="#appendix" id="appendix">Appendix</a></h1>
 <h1><a class="header" href="#a---further-reading" id="a---further-reading">A - Further Reading</a></h1>
 <ul>
