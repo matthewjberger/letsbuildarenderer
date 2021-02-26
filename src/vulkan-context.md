@@ -39,7 +39,7 @@ In reverse order, the fields are as follows.
 
 * `device`
 
-    A wrapper around a `[vk::Device](https://docs.rs/ash/0.31.0/ash/vk/struct.Device.html)`. A logical device represents the application's view of the physical device. Vulkan calls will be made primarily on this object.
+    A wrapper around a [`vk::Device`](https://docs.rs/ash/0.31.0/ash/vk/struct.Device.html). A logical device represents the application's view of the physical device. Vulkan calls will be made primarily on this object.
 
 * `allocator`
 
